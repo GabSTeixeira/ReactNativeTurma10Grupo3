@@ -1,12 +1,13 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
+import { Animais } from './src/screens/Animais';
 
 
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text>inicio</Text>
+      <Animais/>
       <StatusBar style="auto" />
     </View>
   );
