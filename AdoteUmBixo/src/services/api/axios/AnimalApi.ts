@@ -1,7 +1,7 @@
 
 import axios from "axios";
 import { CLIENT_SECRET, CLIENT_ID } from '@env'
-import { AnimaisApiResponse, AnimalApiResponse, tokenResponse } from "./Types";
+import { AnimaisApiResponse } from "./Types";
 import * as FileSystem from 'expo-file-system'
 
 const apiCallTimeJsonUri = FileSystem.documentDirectory + 'apiCallTime.json'
@@ -17,17 +17,13 @@ const buscarToken = async (): Promise<void> => {
 
     const response = await axios.post('https://api.petfinder.com/v2/oauth2/token', multiPartForm , {
         headers: {'Content-Type': 'multipart/form-data'}
-
-    } )
+    })
 
     TOKEN = response.data.access_token;
-
-    console.log(TOKEN)
 
     await FileSystem.writeAsStringAsync(apiCallTimeJsonUri,JSON.stringify({ultimaData: new Date().valueOf(), ultimoToken: TOKEN}))
    
 }
-
 
 const ApiAnimal = axios.create({
     baseURL: 'https://api.petfinder.com/v2'
@@ -50,7 +46,6 @@ export const carregarAnimais = async (): Promise<AnimaisApiResponse | null> => {
                     await buscarToken()
                 } else {
                     TOKEN = requisicaoAnterior.ultimoToken
-                    console.log(TOKEN)
                 }
             } else {
                 await buscarToken()
@@ -64,7 +59,6 @@ export const carregarAnimais = async (): Promise<AnimaisApiResponse | null> => {
         const response = await ApiAnimal.get('/animals', {
             headers: {Authorization: 'Bearer '+TOKEN}
         })
-
 
         return response.data;
         
