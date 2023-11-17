@@ -38,7 +38,9 @@ const GlobalStyle = StyleSheet.create({
 
     texto: {
         fontSize: 14
-    }
+    },
+
+
 })
 
 export default GlobalStyle

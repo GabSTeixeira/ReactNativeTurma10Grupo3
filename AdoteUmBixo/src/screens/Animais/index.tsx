@@ -9,7 +9,7 @@ import { BaseAnimal } from "../../components/BaseAnimal";
 import GlobalStyle from "../../globalStyle/GlobalStyle";
 import { styles } from "./styles";
 
-export const Animais = () => {
+const Animais = () => {
   const data = [
     {
       id: "1",
@@ -76,3 +76,5 @@ export const Animais = () => {
       </ScrollView>
     </View>
   )};
+
+export default Animais
