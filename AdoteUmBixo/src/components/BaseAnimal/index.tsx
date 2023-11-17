@@ -8,8 +8,9 @@ export const BaseAnimal = ({ name, type, age, description, photos, width, height
       <Text style={GlobalStyle.texto}>Nome do Pet: {name}</Text>
       <Image source={photos} style={{width, height}} />
       <Text style={GlobalStyle.texto}>
-        {type}, {age}
+        {type}
       </Text>
+      <Text style={GlobalStyle.texto}>{age}</Text>
       <Text style={GlobalStyle.texto}>Descrição:</Text>
       <Text style={GlobalStyle.texto}>{description}</Text>
     </View>
