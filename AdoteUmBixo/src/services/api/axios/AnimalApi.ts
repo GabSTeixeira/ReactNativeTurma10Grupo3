@@ -1,6 +1,6 @@
 
 import axios from "axios";
-import { API_KEY, CLIENT_SECRET, CLIENT_ID } from '@env'
+import { CLIENT_SECRET, CLIENT_ID } from '@env'
 import { AnimaisApiResponse, AnimalApiResponse, tokenResponse } from "./Types";
 import * as FileSystem from 'expo-file-system'
 
@@ -21,6 +21,8 @@ const buscarToken = async (): Promise<void> => {
     } )
 
     TOKEN = response.data.access_token;
+
+    console.log(TOKEN)
 
     await FileSystem.writeAsStringAsync(apiCallTimeJsonUri,JSON.stringify({ultimaData: new Date().valueOf(), ultimoToken: TOKEN}))
    
@@ -48,6 +50,7 @@ export const carregarAnimais = async (): Promise<AnimaisApiResponse | null> => {
                     await buscarToken()
                 } else {
                     TOKEN = requisicaoAnterior.ultimoToken
+                    console.log(TOKEN)
                 }
             } else {
                 await buscarToken()
@@ -55,16 +58,20 @@ export const carregarAnimais = async (): Promise<AnimaisApiResponse | null> => {
         } catch (error) {
             console.log('serviço fora do ar')
         }
-    
+        
+        console.log('Token: '+TOKEN.slice(0,10))
+
         const response = await ApiAnimal.get('/animals', {
             headers: {Authorization: 'Bearer '+TOKEN}
         })
+
 
         return response.data;
         
     } catch (error) {
         
         console.log('Problema na requisição de dados')
+        buscarToken()
 
         return null 
     }
