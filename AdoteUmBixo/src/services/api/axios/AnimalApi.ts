@@ -1,6 +1,6 @@
 
 import axios from "axios";
-import { API_KEY, CLIENT_SECRET, CLIENT_ID } from '@env'
+import { CLIENT_SECRET, CLIENT_ID } from '@env'
 import { AnimaisApiResponse, AnimalApiResponse, tokenResponse } from "./Types";
 import * as FileSystem from 'expo-file-system'
 
