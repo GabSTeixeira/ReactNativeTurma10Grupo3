@@ -8,8 +8,9 @@ import {
 import { BaseAnimal } from "../../components/BaseAnimal";
 import GlobalStyle from "../../globalStyle/GlobalStyle";
 import { styles } from "./styles";
+import { SafeAreaView } from "react-native-safe-area-context";
 
-const Animais = () => {
+const Animais = ({navigation}: any) => {
   const data = [
     {
       id: "1",
@@ -21,7 +22,7 @@ const Animais = () => {
         "https://dl5zpyw5k3jeb.cloudfront.net//photos//pets//69705496//1//?bust=1700161169&width=100",
     },
     {
-      id: "1",
+      id: "2",
       name: "Thor",
       type: "Dog",
       age: "5",
@@ -30,7 +31,7 @@ const Animais = () => {
         "https://dl5zpyw5k3jeb.cloudfront.net//photos//pets//69705496//1//?bust=1700161169&width=100",
     },
     {
-      id: "1",
+      id: "3",
       name: "Thor",
       type: "Dog",
       age: "5",
@@ -39,7 +40,7 @@ const Animais = () => {
         "https://dl5zpyw5k3jeb.cloudfront.net//photos//pets//69705496//1//?bust=1700161169&width=100",
     },
     {
-      id: "1",
+      id: "4",
       name: "Thor",
       type: "Dog",
       age: "5",
@@ -50,16 +51,16 @@ const Animais = () => {
   ];
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView>
+      
       <View>
         <Text style={GlobalStyle.titulo}>Animais para Adoção</Text>
       </View>
-      <ScrollView>
         <FlatList
           data={data}
           numColumns={2}
           renderItem={({ item }) => (
-            <TouchableOpacity style={styles.lista}>
+            <TouchableOpacity onPress={() => navigation.navigate('Animal', item.id)} style={styles.lista}>
               <BaseAnimal
                 photos={item.photos}
                 name={item.name}
@@ -68,13 +69,12 @@ const Animais = () => {
                 description={item.description}
                 width={100}
                 height={150}
-              />
+                />
             </TouchableOpacity>
           )}
           keyExtractor={(item) => item.id}
-        />
-      </ScrollView>
-    </View>
+          />
+    </SafeAreaView>
   )};
 
 export default Animais
