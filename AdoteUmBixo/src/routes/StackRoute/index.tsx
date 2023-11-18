@@ -1,6 +1,6 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Login from "../../screens/Login";
-import Cadastro from "../../screens/Animal";
+import Cadastro from "../../screens/Cadastro";
 import TabRoutes from "../TabBarRoute";
 import Animal from "../../screens/Animal";
 import GlobalStyle from "../../globalStyle/GlobalStyle";
