@@ -31,6 +31,10 @@ const GlobalStyle = StyleSheet.create({
         color: '#1BBCB6'
     },
 
+    laranja: {
+        color: '#FD7E55'
+    },
+
     titulo: {
         fontSize: 20,
         fontWeight: 'bold'

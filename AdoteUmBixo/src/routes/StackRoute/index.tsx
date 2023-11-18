@@ -5,7 +5,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 //import TabRoutes from "../TabBarRoute";
 import Home from "../../screens/Home";
 import Login from "../../screens/Login";
-import Cadastro from "../../screens/Animal";
+import Cadastro from "../../screens/Cadastro";
 import TabRoutes from "../TabBarRoute";
 import Animal from "../../screens/Animal";
 
@@ -21,12 +21,12 @@ const StackRoutes = () => {
                 options={{headerShown: false}}
             />
             <Stack.Screen
-                name="Login"
-                component={Login}
-            />
-            <Stack.Screen
                 name="Cadastro"
                 component={Cadastro}
+            />
+            <Stack.Screen
+                name="Login"
+                component={Login}
             />
             <Stack.Screen
                 name='Animal'
