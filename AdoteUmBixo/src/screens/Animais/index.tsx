@@ -21,36 +21,36 @@ const Animais = ({navigation}: any) => {
     carregarAnimais().then(res=> {addAnimais(res?.animals)}).then(()=>setLoading(false)).catch(res=> {console.log(res); setLoading(true)})
   },[])
 
-  const {} = useContext(AnimaisContext)
-
   return (
-    <SafeAreaView>
-      {loading ? <Text> carregando... </Text> : (<>
-      <View>
-        <Text style={GlobalStyle.titulo}>Animais para Adoção</Text>
-      </View>
-        
-        {<FlatList
+        <SafeAreaView style={styles.container}>
+        <View style={styles.titulo}>
+          <Text style={[GlobalStyle.titulo, { color: GlobalStyle.branco.color }]}>
+            Animais para Adoção
+          </Text>
+        </View>
+        <FlatList
           data={getAnimais()}
-          numColumns={2}
           renderItem={({ item }) => (
-            <TouchableOpacity onPress={() => navigation.navigate('Animal', item.id)} style={styles.lista}>
+            <TouchableOpacity
+              onPress={() => navigation.navigate("Animal", item.id)}
+              style={styles.lista}
+            >
               <BaseAnimal
-                photos={item.photos?.[0]?.full}
+                flexRow={true}
+                photos={item.photos?.[0]?.small}
                 name={item.name}
                 type={item.type}
                 age={item.age}
                 description={item.description}
                 width={100}
-                height={150}
-                />
+                height={100}
+              />
             </TouchableOpacity>
           )}
           keyExtractor={(item) => item.id.toString()}
         />
-        }
-      </>)}
-    </SafeAreaView>
-    )};
+      </SafeAreaView>
+    )
+};
 
 export default Animais
