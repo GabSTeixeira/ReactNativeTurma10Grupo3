@@ -1,12 +1,12 @@
 import React from "react";
-import { TextInput, TextInputProps } from "react-native";
+import { TextInput, TextInputProps, StyleProp, ViewStyle } from "react-native";
 import { styles } from "./styles";
 
 interface InputProps extends TextInputProps {
+  customStyle?: StyleProp<ViewStyle>
 }
 
-export const Input = ({ ...props }: InputProps) => {
+export const Input = ({ style, customStyle, ...props }: InputProps) => {
   return( 
-    <TextInput style={styles.input} {...props} />
-  );
-};
+    <TextInput style={[styles.input, style, customStyle]} {...props} />
+  )};
