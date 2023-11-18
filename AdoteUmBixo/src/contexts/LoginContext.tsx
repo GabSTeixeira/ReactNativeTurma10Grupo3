@@ -1,6 +1,6 @@
 
 import { createContext, useState } from 'react'
-import { UserProps } from '../services/api/dbjson/types'
+import { UserProps } from '../services/api/dbjson/Types'
 
 
 interface LoginContextProvider {
