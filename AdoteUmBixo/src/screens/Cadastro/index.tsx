@@ -5,7 +5,10 @@ const Cadastro = ({navigation}: any) => {
 
 
     return (
+        <>
             <Text onPress={() => navigation.navigate('Home')}>Cadastro</Text>
+            <Text>teste</Text>
+        </>
     )
 }
 

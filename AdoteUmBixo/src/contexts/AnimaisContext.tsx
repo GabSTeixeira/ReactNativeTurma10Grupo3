@@ -4,7 +4,7 @@ import { AnimalApiResponseProps } from '../services/api/axios/Types'
 
 
 interface AnimaisContextProvider {
-    addAnimais: (arrayAnimais: AnimalApiResponseProps[]) => void,
+    addAnimais: (arrayAnimais: AnimalApiResponseProps[] | undefined) => void,
     getAnimais: () => AnimalApiResponseProps[]
 }
 
@@ -28,8 +28,11 @@ export const AnimaisProvider = ({children}: AnimaisProvider) => {
         return animais.find(Animal => Animal.id === idInput) || null
     }
 
-    const addAnimais = (arrayAnimais: AnimalApiResponseProps[]) => {
-        setAnimais(arrayAnimais)
+    const addAnimais = (arrayAnimais: AnimalApiResponseProps[] | undefined) => {
+
+        if (arrayAnimais != undefined) {            
+            setAnimais(arrayAnimais)
+        }
     }
 
     return(
