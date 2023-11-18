@@ -1,38 +1,56 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-
-
-
-//import TabRoutes from "../TabBarRoute";
-import Home from "../../screens/Home";
 import Login from "../../screens/Login";
 import Cadastro from "../../screens/Animal";
 import TabRoutes from "../TabBarRoute";
 import Animal from "../../screens/Animal";
+import GlobalStyle from "../../globalStyle/GlobalStyle";
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
+import { TouchableOpacity } from "react-native";
+import { StackActions, useNavigation } from "@react-navigation/native";
+import { LoginProvider } from "../../contexts/LoginContext";
 
-const Stack = createNativeStackNavigator()
+export const Stack = createNativeStackNavigator()
 
 
 const StackRoutes = () => {
+    const navigation = useNavigation();
+    const infoColor = GlobalStyle.verde.color
     return (
-        <Stack.Navigator screenOptions={{headerShown: true}}>
-            <Stack.Screen
-                name="Tab"
-                component={TabRoutes}
-                options={{headerShown: false}}
-            />
-            <Stack.Screen
-                name="Login"
-                component={Login}
-            />
-            <Stack.Screen
-                name="Cadastro"
-                component={Cadastro}
-            />
-            <Stack.Screen
-                name='Animal'
-                component={Animal}
-            />
-        </Stack.Navigator>
+        <LoginProvider>
+            <Stack.Navigator screenOptions={{
+                headerShown: true, 
+                headerLeft: () => (
+                    <TouchableOpacity onPress={()=>navigation.dispatch(StackActions.pop())}>
+                        <FontAwesomeIcon
+                            icon={faArrowLeft}
+                            size={24}
+                            color={infoColor}
+                            style={{ margin: 10 }}
+                            />
+                    </TouchableOpacity>
+                ),
+                headerTintColor: infoColor    
+            }}>
+                <Stack.Screen
+                    name="Tab"
+                    component={TabRoutes}
+                    options={{headerShown: false}}
+                    />
+                <Stack.Screen
+                    name="Login"
+                    component={Login}
+                    />
+                <Stack.Screen
+                    name="Cadastro"
+                    component={Cadastro}
+                    />
+                <Stack.Screen
+                    name="Animal"
+                    component={Animal}
+                    />
+            </Stack.Navigator>
+        </LoginProvider>
     )
 }
 

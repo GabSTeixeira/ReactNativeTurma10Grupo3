@@ -5,9 +5,7 @@ const Cadastro = ({navigation}: any) => {
 
 
     return (
-        <SafeAreaView>
             <Text onPress={() => navigation.navigate('Home')}>Cadastro</Text>
-        </SafeAreaView>
     )
 }
 
