@@ -1,21 +1,19 @@
-// Importações necessárias
 import React, { useState } from 'react';
 import { SafeAreaView, View, Text, TextInput, TouchableOpacity } from 'react-native';
-import styles from './styles'; // Importa estilos
+import styles from './styles';
+
 
 const LoginScreen: React.FC = () => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
 
   const handleLogin = () => {
-    // Lógica de autenticação aqui
     console.log(`Email: ${email}, Password: ${password}`);
   };
 
   return (
     <SafeAreaView style={styles.container}>
-       <Text style={styles.label}>Login</Text>
-      
+      <Text style={styles.label}>Login</Text>
       <Text style={styles.label}>Email</Text>
       <TextInput
         style={styles.input}

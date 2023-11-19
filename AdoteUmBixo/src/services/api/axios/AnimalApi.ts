@@ -1,7 +1,7 @@
 
 import axios from "axios";
 import { CLIENT_SECRET, CLIENT_ID } from '@env'
-import { AnimaisApiResponse } from "./Types";
+import { AnimaisApiResponseProps } from "./Types";
 import * as FileSystem from 'expo-file-system'
 
 const apiCallTimeJsonUri = FileSystem.documentDirectory + 'apiCallTime.json'
@@ -30,7 +30,7 @@ const ApiAnimal = axios.create({
 })
 
 
-export const carregarAnimais = async (): Promise<AnimaisApiResponse | null> => {  
+export const carregarAnimais = async (): Promise<AnimaisApiResponseProps | null> => {  
     
     try {
         

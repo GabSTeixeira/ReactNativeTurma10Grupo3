@@ -1,28 +1,47 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-
-import Home from '../../screens/Home'
-import Login from '../../screens/Login'
-import App from '../../../App'
-import StackRoutes from '../StackRoute'
-import Animal from '../../screens/Animal'
+import { AnimaisProvider } from '../../contexts/AnimaisContext'
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
+import { faHouseFlag, faDog } from '@fortawesome/free-solid-svg-icons'
 import Animais from '../../screens/Animais'
+import Home from '../../screens/Home'
+import GlobalStyle from '../../globalStyle/GlobalStyle'
 
 const Tab = createBottomTabNavigator()
 
-
 const TabRoutes = () => {
     return (
-        <Tab.Navigator screenOptions={{headerShown: false}}>
-            <Tab.Screen
-                name='Home'
-                component={Home}
-            />
-            <Tab.Screen
-                name='Animais'
-                component={Animais}
-            />
-            
-        </Tab.Navigator>
+        <AnimaisProvider>
+            <Tab.Navigator screenOptions={{
+                tabBarActiveTintColor: GlobalStyle.verde.color,
+                tabBarInactiveTintColor: 'black',
+                headerShown: false,
+                tabBarLabelStyle: {
+                    fontSize: 20,
+                    fontWeight: 'bold',
+                }
+            }}>
+                <Tab.Screen
+                    name='Home'
+                    component={Home}
+                    options={{
+                        tabBarIcon: ({color, size}) => (
+                            <FontAwesomeIcon icon={faHouseFlag} size={size} color={color}/>
+                        ),
+                        tabBarLabel: 'Inicio'
+                    }}
+                    />
+                <Tab.Screen
+                    name='Animais'
+                    component={Animais}
+                    options={{
+                        tabBarIcon: ({color, size}) => (
+                            <FontAwesomeIcon icon={faDog} size={size} color={color}/>
+                        ),
+                        tabBarLabel: 'Animais'
+                    }}
+                    />
+            </Tab.Navigator>
+        </AnimaisProvider>
     )
 }
 
