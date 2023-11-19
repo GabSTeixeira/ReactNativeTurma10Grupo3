@@ -1,11 +1,16 @@
-import React, { useState } from 'react';
-import { SafeAreaView, View, Text, TextInput, TouchableOpacity } from 'react-native';
-import styles from './styles';
+import React, { useState } from "react";
+import { View, Text, Image } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import GlobalStyle from "../../globalStyle/GlobalStyle";
+import styles from "./styles";
+import logo from "../../assets/images/Logo.png";
+import { Button } from "../../components/Button";
+import { Input } from "../../components/Input";
 
 
-const LoginScreen: React.FC = () => {
-  const [email, setEmail] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
+const LoginScreen = ({ navigation }: any) => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const handleLogin = () => {
     console.log(`Email: ${email}, Password: ${password}`);
@@ -13,30 +18,41 @@ const LoginScreen: React.FC = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.label}>Login</Text>
-      <Text style={styles.label}>Email</Text>
-      <TextInput
-        style={styles.input}
-        onChangeText={setEmail}
-        value={email}
-        placeholder="Digite seu email"
-        keyboardType="email-address"
-      />
+      <View>
+        <Image style={styles.logo} source={logo} />
+      </View>
+      <Text style={[GlobalStyle.titulo, { color: GlobalStyle.verde.color }]}>Login</Text>
 
-      <Text style={styles.label}>Senha</Text>
-      <TextInput
-        style={styles.input}
-        onChangeText={setPassword}
-        value={password}
-        placeholder="Digite sua senha"
-        secureTextEntry
-      />
+      <View>
+        <Text style={GlobalStyle.texto}>Email</Text>
+        <Input
+          style={{ backgroundColor: GlobalStyle.branco.color, borderColor: GlobalStyle.opala.color }}
 
-      <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
-        <Text style={styles.loginButtonText}>Login</Text>
-      </TouchableOpacity>
+          value={email}
+          onChangeText={(text) => setEmail(text)}
+          keyboardType="email-address"
+        />
+      </View>
+      <View>
+        <Text style={GlobalStyle.texto}>Senha</Text>
+        <Input
+          style={{ backgroundColor: GlobalStyle.branco.color, borderColor: GlobalStyle.opala.color }}
 
-      <Text style={styles.label}>Não tem cadastro? Cadastre-se aqui</Text>
+          value={password}
+          onChangeText={(text) => setPassword(text)}
+          secureTextEntry={true}
+        />
+      </View>
+
+      <Button
+        style={styles.loginButton}
+        onPress={handleLogin}
+      >
+        <Text style={{ color: GlobalStyle.fullBranco.color }}>Login</Text>
+      </Button>
+      <Text style={GlobalStyle.texto}>Não tem cadastro? Cadastre-se aqui</Text>
+      <Text style={GlobalStyle.texto}>Esqueceu usuário ou senha? Clique aqui</Text>
+
     </SafeAreaView>
   );
 };

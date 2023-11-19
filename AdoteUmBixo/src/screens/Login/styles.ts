@@ -1,5 +1,5 @@
-// Importações necessárias
 import { StyleSheet } from 'react-native';
+import GlobalStyle from "../../globalStyle/GlobalStyle";
 
 
 const styles = StyleSheet.create({
@@ -10,19 +10,19 @@ const styles = StyleSheet.create({
     padding: 16,
 
   },
-  label: {
-    fontSize: 12,
-    marginBottom: 20,
-    marginTop: 20,
+  
+  logo: {
+    width: 120,
+    height: 120
   },
   input: {
-    width: '95%',
-    borderRadius: 30,
+    width: '100%',
+    borderRadius: 5,
     height: 40,
-    borderColor: '#D9D9D9',
-    borderWidth: 1,
+    borderColor: GlobalStyle.opala.color,
     marginBottom: 16,
-    paddingHorizontal: 8,
+    backgroundColor: GlobalStyle.branco.color,
+ 
   },
   loginButton: {
     backgroundColor: '#1bbcb6',
@@ -30,11 +30,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 24,
     borderRadius: 20,
   },
-  loginButtonText: {
-    color: 'white',
-    fontSize: 18,
-    textAlign: 'center',
-  },
+
 });
 
 export default styles;
