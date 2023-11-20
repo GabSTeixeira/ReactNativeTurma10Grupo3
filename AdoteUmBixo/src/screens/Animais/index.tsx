@@ -21,6 +21,7 @@ const Animais = ({navigation}: any) => {
     carregarAnimais().then(res=> {addAnimais(res?.animals)}).then(()=>setLoading(false)).catch(res=> {console.log(res); setLoading(true)})
   },[])
 
+
   return (
         <SafeAreaView style={styles.container}>
         <View style={styles.titulo}>
@@ -37,7 +38,7 @@ const Animais = ({navigation}: any) => {
             >
               <BaseAnimal
                 flexRow={true}
-                photos={item.photos?.[0]?.small}
+                photos={item.photos?.[0]?.full}
                 name={item.name}
                 type={item.type}
                 age={item.age}

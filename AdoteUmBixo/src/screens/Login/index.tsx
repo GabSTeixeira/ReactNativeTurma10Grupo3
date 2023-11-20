@@ -8,7 +8,7 @@ import { login } from "../../services/api/auth/auth";
 const Login: React.FC = () => {
     const { logined } = useContext(AuthContext);
 
-    console.log(logined)
+    
 
     async function handleLogin() {
         const response = await login();

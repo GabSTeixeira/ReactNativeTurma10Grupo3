@@ -6,10 +6,10 @@ import AuthRoutes from "./AuthRoutes";
 
 const Routes: React.FC = () => {
     return (
-        // <NavigationContainer>
-        //     <StackRoutes />
-        // </NavigationContainer>
-        <AuthRoutes />
+         <NavigationContainer>
+             <StackRoutes />
+         </NavigationContainer>
+        //<AuthRoutes />
     )
 }
 

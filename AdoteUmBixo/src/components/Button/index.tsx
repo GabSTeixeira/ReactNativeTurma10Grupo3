@@ -11,4 +11,5 @@ export const Button = ({ children, ...props }: ButtonProps) => {
     <TouchableOpacity style={styles.button} {...props}>
       {children}
     </TouchableOpacity>
-  )};
+  )
+};

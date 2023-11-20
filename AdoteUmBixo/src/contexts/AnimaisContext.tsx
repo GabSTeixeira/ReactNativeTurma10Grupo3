@@ -30,8 +30,14 @@ export const AnimaisProvider = ({children}: AnimaisProvider) => {
 
     const addAnimais = (arrayAnimais: AnimalApiResponseProps[] | undefined) => {
 
-        if (arrayAnimais != undefined) {            
-            setAnimais(arrayAnimais)
+        if (arrayAnimais !== undefined) {
+            const animaisComFotoEFull = arrayAnimais.filter(animal => 
+                Array.isArray(animal.photos) &&
+                animal.photos?.length > 0 &&
+                animal.photos.some(photo => photo.full !== undefined)
+            );
+        
+            setAnimais(animaisComFotoEFull);
         }
     }
 
