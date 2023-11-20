@@ -20,14 +20,15 @@ export const styles = StyleSheet.create({
         fontWeight: "bold",
         lineHeight: 36
     },
-    caixinha: {
+    caixaTexto: {
         marginTop: 7,
-        width: '100%',
-        height: 40,
         backgroundColor: GlobalStyle.opala.color,
         opacity: 50,
-        borderWidth: 1,
         marginBottom: 10,
         paddingHorizontal: 10,
-    }
+    },
+    inputError: {
+        borderColor: "red",
+        borderWidth: 1,
+    },
 });

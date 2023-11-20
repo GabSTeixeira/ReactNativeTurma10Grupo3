@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { View, Text, Image } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
 import GlobalStyle from "../../globalStyle/GlobalStyle";
 import { styles } from "./styles";
 import logo from "../../assets/images/Logo.png";
 import { Button } from "../../components/Button";
 import { Input } from "../../components/Input";
+import LinkBar from "../../components/LinkBar";
+import axios from "axios";
 
 const Cadastro = ({ navigation }: any) => {
   const [name, setName] = useState("");
@@ -13,15 +14,25 @@ const Cadastro = ({ navigation }: any) => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  const handleSignUp = () => {
-    // Implement signup logic here using name, email, password, and confirmPassword
-    console.log("Signing up with:", name, email, password, confirmPassword);
-    // Add logic to sign up the user
-  };
+  const handleLogin = async () => {
+    try {
+      const response = await axios.post("http://localhost:8080/users", {
+        name,
+        email,
+        password,
+      });
+      navigation.navigate("Login")
+      setName("")
+      setEmail("")
+      setPassword("")
+      setConfirmPassword("")
+    } catch (error) {
+      console.error("Erro ao cadastrar usuário:", error);
+    }    
+  }
 
   return (
     <View style={styles.container}>
-      <Text onPress={() => navigation.navigate("Home")}>Cadastro</Text>
       <View>
         <Image style={styles.logo} source={logo} />
       </View>
@@ -29,9 +40,9 @@ const Cadastro = ({ navigation }: any) => {
         <Text style={styles.tituloCadastro}>Cadastro</Text>
       </View>
       <View>
-        <Text style={GlobalStyle.texto}>Nome Completo do adotante</Text>
+        <Text style={GlobalStyle.texto}>Nome Completo do adotante:</Text>
         <Input
-          style={styles.caixinha}
+          style={styles.caixaTexto}
           value={name}
           onChangeText={(text) => setName(text)}
         />
@@ -39,7 +50,7 @@ const Cadastro = ({ navigation }: any) => {
       <View>
         <Text style={GlobalStyle.texto}>Email</Text>
         <Input
-          style={styles.caixinha}
+          style={styles.caixaTexto}
           value={email}
           onChangeText={(text) => setEmail(text)}
           keyboardType="email-address"
@@ -48,7 +59,7 @@ const Cadastro = ({ navigation }: any) => {
       <View>
         <Text style={GlobalStyle.texto}>Senha</Text>
         <Input
-          style={styles.caixinha}
+          style={styles.caixaTexto}
           value={password}
           onChangeText={(text) => setPassword(text)}
           secureTextEntry={true}
@@ -57,7 +68,7 @@ const Cadastro = ({ navigation }: any) => {
       <View>
         <Text style={GlobalStyle.texto}>Confirmar Senha</Text>
         <Input
-          style={styles.caixinha}
+          style={[styles.caixaTexto, confirmPassword !== password && styles.inputError]}
           value={confirmPassword}
           onChangeText={(text) => setConfirmPassword(text)}
           secureTextEntry={true}
@@ -65,17 +76,19 @@ const Cadastro = ({ navigation }: any) => {
       </View>
       <View>
         <Button
-          style={{ backgroundColor: GlobalStyle.laranja.color }}
-          onPress={handleSignUp}
+          buttonStyle={{ backgroundColor: GlobalStyle.laranja.color }}
+          onPress={handleLogin}
         >
           {" "}
           <Text style={{ color: GlobalStyle.azul.color }}>Finalizar</Text>{" "}
         </Button>
       </View>
-      <Text onPress={() => navigation.navigate("Home")}>Cadastro</Text>
-      <Text>teste</Text>
+      <LinkBar
+        questionText="Já tem Cadastro? "
+        linkText="Logar-se"
+        onPress={() => navigation.navigate("Login")}
+      />
     </View>
-  );
-};
+  )};
 
 export default Cadastro;
