@@ -78,8 +78,8 @@ const Cadastro = ({ navigation }: any) => {
         <Button
           buttonStyle={{ backgroundColor: GlobalStyle.laranja.color }}
           onPress={handleCadastro}
-        >{" "}
-          <Text style={{ color: GlobalStyle.azul.color }}>Finalizar</Text>{" "}
+        >
+          <Text style={{ color: GlobalStyle.azul.color }}>Finalizar</Text>
         </Button>
       </View>
       <LinkBar

@@ -46,8 +46,8 @@ const Login = ({ navigation }: any) => {
         <Button
           buttonStyle={{ backgroundColor: GlobalStyle.verde.color }}
           onPress={handleLogin}
-        >{" "}
-          <Text style={{ color: GlobalStyle.azul.color }}>Login</Text>{" "}
+        >
+          <Text style={{ color: GlobalStyle.azul.color }}>Login</Text>
         </Button>
       </View>
       <LinkBar
