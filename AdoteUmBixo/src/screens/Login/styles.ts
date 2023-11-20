@@ -10,8 +10,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
   tituloLogin: {
-    marginTop: -15,
-    fontSize: 40,
+    marginTop: 10,
+    fontSize: 36,
     color: GlobalStyle.verde.color,
     fontWeight: "bold",
     lineHeight: 36,
@@ -28,6 +28,12 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     paddingHorizontal: 10,
   },
+  textoBotao: {
+    color: GlobalStyle.fullBranco.color,
+    fontWeight: "bold",
+    textShadowColor: GlobalStyle.fullPreto.color,
+    textShadowRadius: 5,
+  }
 });
 
 export default styles;

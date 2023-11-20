@@ -2,12 +2,18 @@ import React from 'react';
 import { View, Text } from 'react-native';
 import { styles } from "./styles";
 import { SafeAreaView } from 'react-native-safe-area-context';
+import LinkBar from '../../components/LinkBar';
 
-const Home = () => {
+const Home = ({ navigation }: any) => {
   return (
     <SafeAreaView style={styles.container}>
 
-      
+<LinkBar
+        questionText="Já tem Cadastro? "
+        linkText="Logar-se"
+        onPress={() => navigation.navigate("Login")}
+      />
+    
       <Text style={styles.titulo}>Adote um bicho</Text>
       <Text style={styles.descricao}>
         Encontre o seu melhor amigo!

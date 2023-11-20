@@ -14,8 +14,8 @@ export const styles = StyleSheet.create({
     height: 120,
   },
   tituloCadastro: {
-    marginTop: -15,
-    fontSize: 40,
+    marginTop: 10,
+    fontSize: 36,
     color: GlobalStyle.laranja.color,
     fontWeight: "bold",
     lineHeight: 36,
@@ -32,4 +32,10 @@ export const styles = StyleSheet.create({
     borderColor: "red",
     borderWidth: 1,
   },
+  textoBotao: {
+    color: GlobalStyle.fullBranco.color,
+    fontWeight: "bold",
+    textShadowColor: GlobalStyle.fullPreto.color,
+    textShadowRadius: 5,
+  }
 });

@@ -1,6 +1,5 @@
 import {
   FlatList,
-  ScrollView,
   Text,
   View,
   TouchableOpacity,
@@ -42,7 +41,9 @@ const Animais = ({navigation}: any) => {
                 name={item.name}
                 type={item.type}
                 age={item.age}
-                description={item.description}
+                gender={item.gender}
+                size={item.size}
+                status={item.status}
                 width={100}
                 height={100}
               />
