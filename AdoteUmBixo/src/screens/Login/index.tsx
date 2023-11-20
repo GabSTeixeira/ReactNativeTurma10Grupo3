@@ -27,10 +27,7 @@ const Login = ({ navigation }: any) => {
       <View>
         <Text style={GlobalStyle.texto}>Email</Text>
         <Input
-          style={{
-            backgroundColor: GlobalStyle.branco.color,
-            borderColor: GlobalStyle.opala.color,
-          }}
+          style={styles.input}
           value={email}
           onChangeText={(text) => setEmail(text)}
           keyboardType="email-address"
@@ -39,10 +36,7 @@ const Login = ({ navigation }: any) => {
       <View>
         <Text style={GlobalStyle.texto}>Senha</Text>
         <Input
-          style={{
-            backgroundColor: GlobalStyle.branco.color,
-            borderColor: GlobalStyle.opala.color,
-          }}
+          style={styles.input}
           value={password}
           onChangeText={(text) => setPassword(text)}
           secureTextEntry={true}

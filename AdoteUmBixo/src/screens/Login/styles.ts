@@ -22,16 +22,11 @@ const styles = StyleSheet.create({
   },
   input: {
     marginTop: 7,
-    backgroundColor: GlobalStyle.opala.color,
+    backgroundColor: GlobalStyle.branco.color,
+    borderColor: GlobalStyle.opala.color,
     opacity: 50,
     marginBottom: 10,
     paddingHorizontal: 10,
-  },
-  loginButton: {
-    backgroundColor: "#1bbcb6",
-    paddingVertical: 12,
-    paddingHorizontal: 24,
-    borderRadius: 20,
   },
 });
 
