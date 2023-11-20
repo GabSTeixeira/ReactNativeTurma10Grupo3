@@ -14,7 +14,7 @@ const Cadastro = ({ navigation }: any) => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  const handleLogin = async () => {
+  const handleCadastro = async () => {
     try {
       const response = await axios.post("http://localhost:8080/users", {
         name,
@@ -77,9 +77,8 @@ const Cadastro = ({ navigation }: any) => {
       <View>
         <Button
           buttonStyle={{ backgroundColor: GlobalStyle.laranja.color }}
-          onPress={handleLogin}
-        >
-          {" "}
+          onPress={handleCadastro}
+        >{" "}
           <Text style={{ color: GlobalStyle.azul.color }}>Finalizar</Text>{" "}
         </Button>
       </View>
