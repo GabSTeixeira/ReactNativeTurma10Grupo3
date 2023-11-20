@@ -1,14 +1,15 @@
 import React, { ReactNode } from "react";
-import { TouchableOpacity, TouchableOpacityProps, View } from "react-native";
+import { TouchableOpacity, TouchableOpacityProps, ViewStyle } from "react-native";
 import { styles } from "./styles";
 
 interface ButtonProps extends TouchableOpacityProps {
-  children: ReactNode;
+  children: ReactNode
+  buttonStyle?: ViewStyle
 }
 
-export const Button = ({ children, ...props }: ButtonProps) => {
+export const Button = ({ children, buttonStyle, ...props }: ButtonProps) => {
   return (
-    <TouchableOpacity style={styles.button} {...props}>
+    <TouchableOpacity style={[styles.button, buttonStyle]} {...props}>
       {children}
     </TouchableOpacity>
   )

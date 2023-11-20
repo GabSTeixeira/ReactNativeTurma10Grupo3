@@ -1,6 +1,6 @@
 
 import axios from "axios";
-import { UserProps } from "./types";
+import { UserProps } from "./Types";
 
 
 const ApiUser = axios.create({
