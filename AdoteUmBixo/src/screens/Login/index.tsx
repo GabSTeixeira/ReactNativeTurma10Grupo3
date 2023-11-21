@@ -11,7 +11,7 @@ import styles from "./styles";
 const Login = ({ navigation }: any) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  
+
 
   const handleLogin = () => {
     console.log(`Email: ${email}, Password: ${password}`);
@@ -55,7 +55,9 @@ const Login = ({ navigation }: any) => {
         linkText="Cadastre-se"
         onPress={() => navigation.navigate("Cadastro")}
       />
+
     </SafeAreaView>
-  )};
+  )
+};
 
 export default Login;
