@@ -9,13 +9,21 @@ import { Button } from "../../components/Button";
 import { Input } from "../../components/Input";
 import LinkBar from "../../components/LinkBar";
 import styles from "./styles";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
 const Login = ({ navigation }: any) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const auth = getAuth();
 
   const handleLogin = () => {
-    console.log(`Email: ${email}, Password: ${password}`);
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        navigation.navigate("Animais");
+      })
+      .catch((error) => {
+        console.error("Erro ao realizar login:", error);
+      });
   };
 
   return (
@@ -63,6 +71,7 @@ const Login = ({ navigation }: any) => {
         onPress={() => navigation.navigate("Cadastro")}
       />
     </SafeAreaView>
-  )};
+  );
+};
 
 export default Login;
