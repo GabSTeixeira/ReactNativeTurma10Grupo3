@@ -9,21 +9,27 @@ import { Button } from "../../components/Button";
 import { Input } from "../../components/Input";
 import LinkBar from "../../components/LinkBar";
 import styles from "./styles";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { getDatabase, ref, query, orderByChild, equalTo, get } from "firebase/database";
+
 
 const Login = ({ navigation }: any) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const auth = getAuth();
 
-  const handleLogin = () => {
-    signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        navigation.navigate("Animais");
-      })
-      .catch((error) => {
-        console.error("Erro ao realizar login:", error);
-      });
+  const handleLogin = async () => {
+    const db = getDatabase();
+    const usersRef = ref(db, '/users');
+    const q = query(usersRef, orderByChild('email'), equalTo(email));
+  
+    get(q).then((snapshot) => {
+      if (snapshot.exists()) {
+        console.log(snapshot.val());
+      } else {
+        console.log("Usúario não cadastrado");
+      }
+    }).catch((error) => {
+      console.error(error);
+    });
   };
 
   return (
@@ -42,6 +48,7 @@ const Login = ({ navigation }: any) => {
             value={email}
             onChangeText={(text) => setEmail(text)}
             keyboardType="email-address"
+            autoCapitalize="none"
           />
         </View>
       </View>
@@ -54,6 +61,7 @@ const Login = ({ navigation }: any) => {
             value={password}
             onChangeText={(text) => setPassword(text)}
             secureTextEntry={true}
+            keyboardType="numeric"
           />
         </View>
       </View>

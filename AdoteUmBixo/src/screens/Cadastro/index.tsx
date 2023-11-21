@@ -8,8 +8,7 @@ import logo from "../../assets/images/Logo.png";
 import { Button } from "../../components/Button";
 import { Input } from "../../components/Input";
 import LinkBar from "../../components/LinkBar";
-import axios from "axios";
-import { getDatabase, ref, push, update } from "firebase/database";
+import { getDatabase, ref, query, orderByChild, equalTo, get, push, update } from "firebase/database";
 
 const Cadastro = ({ navigation }: any) => {
   const [name, setName] = useState("");
@@ -21,17 +20,25 @@ const Cadastro = ({ navigation }: any) => {
     try {
       const database = getDatabase();
       const usersRef = ref(database, "users");
-
+  
+      // Verifique se o e-mail já está em uso
+      const q = query(usersRef, orderByChild('email'), equalTo(email));
+      const snapshot = await get(q);
+      if (snapshot.exists()) {
+        console.error('O e-mail cadastrado!');
+        return;
+      }
+  
       // Use a função 'push' para adicionar um novo usuário
       const newUserRef = push(usersRef);
-
+  
       // Salve as informações do usuário no nó correspondente
-      update(newUserRef, {
+      await update(newUserRef, {
         name,
         email,
         password,
       });
-
+  
       navigation.navigate("Login");
       setName("");
       setEmail("");
@@ -72,6 +79,7 @@ const Cadastro = ({ navigation }: any) => {
             onChangeText={(text) => setEmail(text)}
             keyboardType="email-address"
             placeholder="Email"
+            autoCapitalize="none"
           />
         </View>
       </View>
@@ -85,6 +93,7 @@ const Cadastro = ({ navigation }: any) => {
             onChangeText={(text) => setPassword(text)}
             secureTextEntry={true}
             placeholder="Senha"
+            keyboardType="numeric"
           />
         </View>
       </View>
@@ -101,6 +110,7 @@ const Cadastro = ({ navigation }: any) => {
             onChangeText={(text) => setConfirmPassword(text)}
             secureTextEntry={true}
             placeholder="Confirmar Senha"
+            keyboardType="numeric"
           />
         </View>
       </View>
