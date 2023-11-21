@@ -9,6 +9,7 @@ import { Button } from "../../components/Button";
 import { Input } from "../../components/Input";
 import LinkBar from "../../components/LinkBar";
 import axios from "axios";
+import { getDatabase, ref, push, update } from "firebase/database";
 
 const Cadastro = ({ navigation }: any) => {
   const [name, setName] = useState("");
@@ -18,11 +19,19 @@ const Cadastro = ({ navigation }: any) => {
 
   const handleCadastro = async () => {
     try {
-      const response = await axios.post("http://localhost:8080/users", {
+      const database = getDatabase();
+      const usersRef = ref(database, "users");
+
+      // Use a função 'push' para adicionar um novo usuário
+      const newUserRef = push(usersRef);
+
+      // Salve as informações do usuário no nó correspondente
+      update(newUserRef, {
         name,
         email,
         password,
       });
+
       navigation.navigate("Login");
       setName("");
       setEmail("");
