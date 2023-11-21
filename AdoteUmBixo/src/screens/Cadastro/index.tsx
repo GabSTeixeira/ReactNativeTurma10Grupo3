@@ -1,14 +1,24 @@
 import React, { useState } from "react";
 import { View, Text, Image } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faUser, faEnvelope, faKey } from "@fortawesome/free-solid-svg-icons";
 import GlobalStyle from "../../globalStyle/GlobalStyle";
-import { styles } from "./styles";
 import logo from "../../assets/images/Logo.png";
 import { Button } from "../../components/Button";
 import { Input } from "../../components/Input";
 import LinkBar from "../../components/LinkBar";
-import { getDatabase, ref, query, orderByChild, equalTo, get, push, update } from "firebase/database";
+import {
+  getDatabase,
+  ref,
+  query,
+  orderByChild,
+  equalTo,
+  get,
+  push,
+  update,
+} from "firebase/database";
+import { styles } from "./styles";
 
 const Cadastro = ({ navigation }: any) => {
   const [name, setName] = useState("");
@@ -20,25 +30,22 @@ const Cadastro = ({ navigation }: any) => {
     try {
       const database = getDatabase();
       const usersRef = ref(database, "users");
-  
-      // Verifique se o e-mail já está em uso
-      const q = query(usersRef, orderByChild('email'), equalTo(email));
+
+      const q = query(usersRef, orderByChild("email"), equalTo(email));
       const snapshot = await get(q);
       if (snapshot.exists()) {
-        console.error('O e-mail cadastrado!');
+        console.error("O e-mail cadastrado!");
         return;
       }
-  
-      // Use a função 'push' para adicionar um novo usuário
+
       const newUserRef = push(usersRef);
-  
-      // Salve as informações do usuário no nó correspondente
+
       await update(newUserRef, {
         name,
         email,
         password,
       });
-  
+
       navigation.navigate("Login");
       setName("");
       setEmail("");
@@ -50,7 +57,7 @@ const Cadastro = ({ navigation }: any) => {
   };
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <View>
         <Image style={styles.logo} source={logo} />
       </View>
@@ -127,7 +134,7 @@ const Cadastro = ({ navigation }: any) => {
         linkText="Logar-se"
         onPress={() => navigation.navigate("Login")}
       />
-    </View>
+    </SafeAreaView>
   )};
 
 export default Cadastro;

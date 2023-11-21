@@ -8,9 +8,16 @@ import logo from "../../assets/images/Logo.png";
 import { Button } from "../../components/Button";
 import { Input } from "../../components/Input";
 import LinkBar from "../../components/LinkBar";
+import {
+  getDatabase,
+  ref,
+  query,
+  orderByChild,
+  equalTo,
+  get,
+} from "firebase/database";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import styles from "./styles";
-import { getDatabase, ref, query, orderByChild, equalTo, get } from "firebase/database";
-
 
 const Login = ({ navigation }: any) => {
   const [email, setEmail] = useState("");
@@ -18,18 +25,25 @@ const Login = ({ navigation }: any) => {
 
   const handleLogin = async () => {
     const db = getDatabase();
-    const usersRef = ref(db, '/users');
-    const q = query(usersRef, orderByChild('email'), equalTo(email));
-  
-    get(q).then((snapshot) => {
-      if (snapshot.exists()) {
-        console.log(snapshot.val());
-      } else {
-        console.log("Usúario não cadastrado");
-      }
-    }).catch((error) => {
-      console.error(error);
-    });
+    const usersRef = ref(db, "/users");
+    const q = query(usersRef, orderByChild("email"), equalTo(email));
+
+    get(q)
+      .then(async (snapshot) => {
+        if (snapshot.exists()) {
+          try {
+            await AsyncStorage.setItem("@user_email", email);
+          } catch (error) {
+            console.error(error);
+          }
+          navigation.navigate("Home");
+        } else {
+          console.log("Usúario não cadastrado");
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   };
 
   return (
@@ -79,7 +93,6 @@ const Login = ({ navigation }: any) => {
         onPress={() => navigation.navigate("Cadastro")}
       />
     </SafeAreaView>
-  );
-};
+  )};
 
 export default Login;
