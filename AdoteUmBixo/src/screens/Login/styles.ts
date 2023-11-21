@@ -5,7 +5,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: "column",
-    justifyContent: "space-evenly" ,
+    justifyContent: "space-evenly",
     alignItems: "center",
     paddingHorizontal: 20,
   },
@@ -33,7 +33,20 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     textShadowColor: GlobalStyle.fullPreto.color,
     textShadowRadius: 5,
-  }
+  },
+  inputContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    borderColor: GlobalStyle.branco.color,
+    borderWidth: 1,
+    borderRadius: 8,
+    paddingHorizontal: 10,
+    marginBottom: 10,
+  },
+  icon: {
+    marginRight: 10,
+    color: GlobalStyle.opala.color,
+  },
 });
 
 export default styles;

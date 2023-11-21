@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { View, Text, Image } from "react-native";
+import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
+import { faUser, faEnvelope, faKey } from "@fortawesome/free-solid-svg-icons";
 import GlobalStyle from "../../globalStyle/GlobalStyle";
 import { styles } from "./styles";
 import logo from "../../assets/images/Logo.png";
@@ -21,15 +23,15 @@ const Cadastro = ({ navigation }: any) => {
         email,
         password,
       });
-      navigation.navigate("Login")
-      setName("")
-      setEmail("")
-      setPassword("")
-      setConfirmPassword("")
+      navigation.navigate("Login");
+      setName("");
+      setEmail("");
+      setPassword("");
+      setConfirmPassword("");
     } catch (error) {
       console.error("Erro ao cadastrar usuário:", error);
-    }    
-  }
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -41,38 +43,57 @@ const Cadastro = ({ navigation }: any) => {
       </View>
       <View>
         <Text style={GlobalStyle.texto}>Nome Completo do adotante:</Text>
-        <Input
-          style={styles.caixaTexto}
-          value={name}
-          onChangeText={(text) => setName(text)}
-        />
+        <View style={styles.inputContainer}>
+          <FontAwesomeIcon icon={faUser} size={20} style={styles.icon} />
+          <Input
+            style={styles.caixaTexto}
+            value={name}
+            onChangeText={(text) => setName(text)}
+            placeholder="Nome Completo"
+          />
+        </View>
       </View>
       <View>
         <Text style={GlobalStyle.texto}>Email</Text>
-        <Input
-          style={styles.caixaTexto}
-          value={email}
-          onChangeText={(text) => setEmail(text)}
-          keyboardType="email-address"
-        />
+        <View style={styles.inputContainer}>
+          <FontAwesomeIcon icon={faEnvelope} size={20} style={styles.icon} />
+          <Input
+            style={styles.caixaTexto}
+            value={email}
+            onChangeText={(text) => setEmail(text)}
+            keyboardType="email-address"
+            placeholder="Email"
+          />
+        </View>
       </View>
       <View>
         <Text style={GlobalStyle.texto}>Senha</Text>
-        <Input
-          style={styles.caixaTexto}
-          value={password}
-          onChangeText={(text) => setPassword(text)}
-          secureTextEntry={true}
-        />
+        <View style={styles.inputContainer}>
+          <FontAwesomeIcon icon={faKey} size={20} style={styles.icon} />
+          <Input
+            style={styles.caixaTexto}
+            value={password}
+            onChangeText={(text) => setPassword(text)}
+            secureTextEntry={true}
+            placeholder="Senha"
+          />
+        </View>
       </View>
       <View>
         <Text style={GlobalStyle.texto}>Confirmar Senha</Text>
-        <Input
-          style={[styles.caixaTexto, confirmPassword !== password && styles.inputError]}
-          value={confirmPassword}
-          onChangeText={(text) => setConfirmPassword(text)}
-          secureTextEntry={true}
-        />
+        <View style={styles.inputContainer}>
+          <FontAwesomeIcon icon={faKey} size={20} style={styles.icon} />
+          <Input
+            style={[
+              styles.caixaTexto,
+              confirmPassword !== password && styles.inputError,
+            ]}
+            value={confirmPassword}
+            onChangeText={(text) => setConfirmPassword(text)}
+            secureTextEntry={true}
+            placeholder="Confirmar Senha"
+          />
+        </View>
       </View>
       <View>
         <Button
