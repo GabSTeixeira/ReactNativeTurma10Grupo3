@@ -5,13 +5,13 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: "column",
-    justifyContent: "space-evenly" ,
+    justifyContent: "space-evenly",
     alignItems: "center",
     paddingHorizontal: 20,
   },
   tituloLogin: {
-    marginTop: -15,
-    fontSize: 40,
+    marginTop: 10,
+    fontSize: 36,
     color: GlobalStyle.verde.color,
     fontWeight: "bold",
     lineHeight: 36,
@@ -27,6 +27,25 @@ const styles = StyleSheet.create({
     opacity: 50,
     marginBottom: 10,
     paddingHorizontal: 10,
+  },
+  textoBotao: {
+    color: GlobalStyle.fullBranco.color,
+    fontWeight: "bold",
+    textShadowColor: GlobalStyle.fullPreto.color,
+    textShadowRadius: 5,
+  },
+  inputContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    borderColor: GlobalStyle.branco.color,
+    borderWidth: 1,
+    borderRadius: 8,
+    paddingHorizontal: 10,
+    marginBottom: 10,
+  },
+  icon: {
+    marginRight: 10,
+    color: GlobalStyle.opala.color,
   },
 });
 
