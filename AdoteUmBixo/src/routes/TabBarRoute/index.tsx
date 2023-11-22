@@ -12,8 +12,9 @@ const TabRoutes = () => {
     return (
         <AnimaisProvider>
             <Tab.Navigator screenOptions={{
-                tabBarActiveTintColor: GlobalStyle.verde.color,
-                tabBarInactiveTintColor: 'black',
+                tabBarActiveTintColor: GlobalStyle.laranja.color,
+                tabBarStyle: { backgroundColor: GlobalStyle.azul.color },
+                tabBarInactiveTintColor: GlobalStyle.branco.color,
                 headerShown: false,
                 tabBarLabelStyle: {
                     fontSize: 20,

@@ -14,7 +14,9 @@ import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 const Login = ({ navigation }: any) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
   const auth = getAuth();
+
 
   const handleLogin = () => {
     signInWithEmailAndPassword(auth, email, password)
@@ -70,7 +72,9 @@ const Login = ({ navigation }: any) => {
         linkText="Cadastre-se"
         onPress={() => navigation.navigate("Cadastro")}
       />
+
     </SafeAreaView>
+
   );
 };
 
