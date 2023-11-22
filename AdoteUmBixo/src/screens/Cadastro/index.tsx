@@ -1,15 +1,24 @@
 import React, { useState } from "react";
 import { View, Text, Image } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faUser, faEnvelope, faKey } from "@fortawesome/free-solid-svg-icons";
 import GlobalStyle from "../../globalStyle/GlobalStyle";
-import { styles } from "./styles";
 import logo from "../../assets/images/Logo.png";
 import { Button } from "../../components/Button";
 import { Input } from "../../components/Input";
 import LinkBar from "../../components/LinkBar";
-import axios from "axios";
-import { getDatabase, ref, push, update } from "firebase/database";
+import {
+  getDatabase,
+  ref,
+  query,
+  orderByChild,
+  equalTo,
+  get,
+  push,
+  update,
+} from "firebase/database";
+import { styles } from "./styles";
 
 const Cadastro = ({ navigation }: any) => {
   const [name, setName] = useState("");
@@ -22,11 +31,16 @@ const Cadastro = ({ navigation }: any) => {
       const database = getDatabase();
       const usersRef = ref(database, "users");
 
-      // Use a função 'push' para adicionar um novo usuário
+      const q = query(usersRef, orderByChild("email"), equalTo(email));
+      const snapshot = await get(q);
+      if (snapshot.exists()) {
+        console.error("O e-mail cadastrado!");
+        return;
+      }
+
       const newUserRef = push(usersRef);
 
-      // Salve as informações do usuário no nó correspondente
-      update(newUserRef, {
+      await update(newUserRef, {
         name,
         email,
         password,
@@ -43,7 +57,7 @@ const Cadastro = ({ navigation }: any) => {
   };
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <View>
         <Image style={styles.logo} source={logo} />
       </View>
@@ -72,6 +86,7 @@ const Cadastro = ({ navigation }: any) => {
             onChangeText={(text) => setEmail(text)}
             keyboardType="email-address"
             placeholder="Email"
+            autoCapitalize="none"
           />
         </View>
       </View>
@@ -85,6 +100,7 @@ const Cadastro = ({ navigation }: any) => {
             onChangeText={(text) => setPassword(text)}
             secureTextEntry={true}
             placeholder="Senha"
+            keyboardType="numeric"
           />
         </View>
       </View>
@@ -101,6 +117,7 @@ const Cadastro = ({ navigation }: any) => {
             onChangeText={(text) => setConfirmPassword(text)}
             secureTextEntry={true}
             placeholder="Confirmar Senha"
+            keyboardType="numeric"
           />
         </View>
       </View>
@@ -117,7 +134,7 @@ const Cadastro = ({ navigation }: any) => {
         linkText="Logar-se"
         onPress={() => navigation.navigate("Login")}
       />
-    </View>
+    </SafeAreaView>
   )};
 
 export default Cadastro;

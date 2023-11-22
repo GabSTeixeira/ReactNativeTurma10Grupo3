@@ -1,22 +1,39 @@
+import React from "react";
+import { Text, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { BaseAnimal } from "../../components/BaseAnimal";
+import { Button } from "../../components/Button";
+import GlobalStyle from "../../globalStyle/GlobalStyle";
+import { styles } from "./styles";
 
-import { Text, Image } from 'react-native'
-import { useRoute } from '@react-navigation/native';
-import { AnimalApiResponseProps } from '../../services/api/axios/Types';
+const Animal = ({navigation, route}: any) => {
+    const item = route.params;
 
-const Animal = ({navigation}: any) => {
-const route = useRoute()
-    const animal = route.params as AnimalApiResponseProps
-    
-    
-    
-    return (
-        <>
-            <Text onPress={()=> navigation.navigate('Home')}>Animal</Text>
-            <Text>{animal.name}</Text>
-            <Text>{animal.age}</Text>
+    const handleVoltarLista=() => {
+        navigation.navigate("Animais")
+    }
 
-            <Image source={{uri:animal?.photos?.[0]?.full}} width={500} height={500}/>
-        </>
+    return(
+        <SafeAreaView style={styles.container}>
+            <View style={styles.context}>
+                <BaseAnimal
+                flexRow={false}
+                photos={item.photos?.[0]?.full}
+                name={item.name}
+                type={item.type}
+                age={item.age}
+                gender={item.gender}
+                size={item.size}
+                status={item.status}
+                width={300}
+                height={300}
+                />
+                <Text style={[styles.descricao, GlobalStyle.texto]}>Descrição: {item.description || "..."}</Text>
+            </View>
+            <Button buttonStyle={{backgroundColor: GlobalStyle.azul.color}} onPress={handleVoltarLista}>
+                <Text>Animais</Text>
+            </Button >
+        </SafeAreaView>
     )
 }
 export default Animal
