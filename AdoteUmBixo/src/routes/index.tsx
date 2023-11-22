@@ -1,10 +1,7 @@
 import { NavigationContainer } from "@react-navigation/native";
-import TabRoutes from "./TabBarRoute";
 import StackRoutes from "./StackRoute";
 
-
-
-const Routes = () => {
+const Routes: React.FC = () => {
     return (
         <NavigationContainer>
             <StackRoutes />

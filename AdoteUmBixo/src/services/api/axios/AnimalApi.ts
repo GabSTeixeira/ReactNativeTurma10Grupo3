@@ -1,7 +1,7 @@
 
 import axios from "axios";
 import { CLIENT_SECRET, CLIENT_ID } from '@env'
-import { AnimaisApiResponse } from "./Types";
+import { AnimaisApiResponseProps } from "./Types";
 import * as FileSystem from 'expo-file-system'
 
 const apiCallTimeJsonUri = FileSystem.documentDirectory + 'apiCallTime.json'
@@ -26,38 +26,41 @@ const buscarToken = async (): Promise<void> => {
 }
 
 const ApiAnimal = axios.create({
+    //petFinder api
     baseURL: 'https://api.petfinder.com/v2'
 })
 
 
-export const carregarAnimais = async (): Promise<AnimaisApiResponse | null> => {  
+export const carregarAnimais = async (): Promise<AnimaisApiResponseProps | null> => {  
     
     try {
-        
-        try {
-            // verifica se o arquivo pra controle de requisição existe
-            if (await FileSystem.getInfoAsync(apiCallTimeJsonUri)) {
-                const requisicaoAnterior = JSON.parse( await FileSystem.readAsStringAsync(apiCallTimeJsonUri))
-                /* 
-                    se a data atual for maior que a data antiga mais uma hora e o json não estiver vazio
-                    gere um novo token. Senão use o anteriormente registrado
-                */
-                if (Object.keys(requisicaoAnterior).length !== 0 && new Date().valueOf() >= requisicaoAnterior.ultimaData + (3600*1000)) {
-                    await buscarToken()
-                } else {
-                    TOKEN = requisicaoAnterior.ultimoToken
-                }
+        // verifica se o arquivo pra controle de requisição existe
+        if (await FileSystem.getInfoAsync(apiCallTimeJsonUri)) {
+            const requisicaoAnterior = JSON.parse( await FileSystem.readAsStringAsync(apiCallTimeJsonUri))
+            /* 
+            se a data atual for maior que a data antiga mais uma hora e o json não estiver vazio
+            gere um novo token. Senão use o anteriormente registrado
+            */
+           if (Object.keys(requisicaoAnterior).length !== 0 && new Date().valueOf() >= requisicaoAnterior.ultimaData + (3600*1000)) {
+               await buscarToken()
             } else {
-                await buscarToken()
+                TOKEN = requisicaoAnterior.ultimoToken
             }
-        } catch (error) {
-            console.log('serviço fora do ar')
+        } else {
+            await buscarToken()
         }
-        
-        console.log('Token: '+TOKEN.slice(0,10))
+    } catch (error) {
+        console.log('serviço fora do ar')
+    }
+    
+    try {
+    console.log('Token: '+TOKEN.slice(0,10)+'...')
 
         const response = await ApiAnimal.get('/animals', {
-            headers: {Authorization: 'Bearer '+TOKEN}
+            headers: {Authorization: 'Bearer '+TOKEN},
+            params: {
+                limit: 100
+            }
         })
 
         return response.data;

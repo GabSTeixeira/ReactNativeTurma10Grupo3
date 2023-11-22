@@ -5,8 +5,8 @@
 
 
 //tipo de resposta da api
-export interface AnimaisApiResponse {
-    animals: AnimalApiResponse[]
+export interface AnimaisApiResponseProps {
+    animals: AnimalApiResponseProps[]
 }
 
 export interface tokenResponse {
@@ -15,7 +15,7 @@ export interface tokenResponse {
   access_token: string
 }
 
-export interface AnimalApiResponse { 
+export interface AnimalApiResponseProps { 
     id: number;
     organization_id: string;
     url: string;
