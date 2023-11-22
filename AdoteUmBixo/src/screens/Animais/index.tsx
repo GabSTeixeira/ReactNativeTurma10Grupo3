@@ -23,18 +23,21 @@ const Animais = ({navigation}: any) => {
 
   return (
         <SafeAreaView style={styles.container}>
-        <View style={styles.titulo}>
+
+        {loading ? (<Text>Carregando...</Text>):(
+          <>
+          <View style={styles.titulo}>
           <Text style={[GlobalStyle.titulo, { color: GlobalStyle.branco.color }]}>
             Animais para Adoção
           </Text>
         </View>
         <FlatList
-          data={getAnimais()}
-          renderItem={({ item }) => (
-            <TouchableOpacity
-              onPress={() => navigation.navigate("Animal", item.id)}
-              style={styles.lista}
-            >
+        data={getAnimais()}
+        renderItem={({ item }) => (
+          <TouchableOpacity
+          onPress={() => navigation.navigate("Animal", item)}
+          style={styles.lista}
+          >
               <BaseAnimal
                 flexRow={true}
                 photos={item.photos?.[0]?.full}
@@ -46,11 +49,13 @@ const Animais = ({navigation}: any) => {
                 status={item.status}
                 width={100}
                 height={100}
-              />
+                />
             </TouchableOpacity>
           )}
           keyExtractor={(item) => item.id.toString()}
-        />
+          />
+          </>
+        )}
       </SafeAreaView>
     )
 };
