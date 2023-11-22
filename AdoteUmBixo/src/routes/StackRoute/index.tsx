@@ -15,11 +15,14 @@ export const Stack = createNativeStackNavigator()
 
 const StackRoutes = () => {
     const navigation = useNavigation();
-    const infoColor = GlobalStyle.verde.color
+    const infoColor = GlobalStyle.laranja.color
     return (
         <LoginProvider>
             <Stack.Navigator screenOptions={{
                 headerShown: true, 
+                headerStyle: {
+                    backgroundColor: GlobalStyle.azul.color
+                },
                 headerLeft: () => (
                     <TouchableOpacity onPress={()=>navigation.dispatch(StackActions.pop())}>
                         <FontAwesomeIcon

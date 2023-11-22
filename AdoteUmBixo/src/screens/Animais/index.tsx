@@ -25,7 +25,6 @@ const Animais = ({ navigation }: any) => {
 
   return (
     <SafeAreaView style={styles.container}>
-
       {loading ? (<Text>Carregando...</Text>) : (
         <>
           <View style={styles.titulo}>

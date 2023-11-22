@@ -4,6 +4,8 @@ import Routes from "./src/routes"
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
 import { initializeApp } from "firebase/app";
+import { StatusBar } from "expo-status-bar";
+import GlobalStyle from "./src/globalStyle/GlobalStyle";
 
 library.add(fas);
 
@@ -26,5 +28,8 @@ export default function App() {
   //const [animais, setAnimais] = useState<AnimalApiResponseProps[]>([])
 
   return (
+   <>
      <Routes/>
+     <StatusBar style="inverted" backgroundColor={GlobalStyle.azul.color}/>
+   </>
   )}

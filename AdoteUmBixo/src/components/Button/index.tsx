@@ -4,7 +4,7 @@ import { styles } from "./styles";
 
 interface ButtonProps extends TouchableOpacityProps {
   children: ReactNode
-  buttonStyle?: ViewStyle
+  buttonStyle?: ViewStyle | Array<ViewStyle> 
 }
 
 export const Button = ({ children, buttonStyle, ...props }: ButtonProps) => {
