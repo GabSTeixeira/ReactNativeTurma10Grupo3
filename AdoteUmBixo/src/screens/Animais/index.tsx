@@ -34,7 +34,7 @@ const Animais = ({ navigation }: any) => {
         data={getAnimais()}
         renderItem={({ item }) => (
           <TouchableOpacity
-            onPress={() => navigation.navigate("Animal", item.id)}
+            onPress={() => navigation.navigate("Animal", item)}
             style={styles.lista}
           >
             <BaseAnimal
