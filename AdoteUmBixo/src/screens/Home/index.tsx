@@ -10,17 +10,13 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { LoginContext } from "../../contexts/LoginContext";
 import { UserProps } from "../../services/api/firebase/Types";
 import { queryLogin } from "../../services/api/firebase/UserAPi";
-import { faL } from "@fortawesome/free-solid-svg-icons";
 
 const Home = ({ navigation }: any) => {
   const { switchLogado, addUserLogado, getLogado } = useContext(LoginContext)
   const [ loading, setLoading ] = useState<boolean>(true)
 
   useEffect(()=> {
-
     handleVerificarLogin().then(()=> setLoading(false))
-
-
   },[])
 
   const handleDeslogar = async (): Promise<void> => {
