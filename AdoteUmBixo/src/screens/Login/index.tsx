@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState, useContext } from "react";
 import { View, Text, Image } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
@@ -8,43 +8,30 @@ import logo from "../../assets/images/Logo.png";
 import { Button } from "../../components/Button";
 import { Input } from "../../components/Input";
 import LinkBar from "../../components/LinkBar";
-import {
-  getDatabase,
-  ref,
-  query,
-  orderByChild,
-  equalTo,
-  get,
-} from "firebase/database";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import styles from "./styles";
+import { LoginContext } from "../../contexts/LoginContext";
+import { UserProps } from "../../services/api/firebase/Types";
+import { queryLogin } from "../../services/api/firebase/UserAPi";
 
 const Login = ({ navigation }: any) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const { addUserLogado, switchLogado } = useContext(LoginContext)
 
   const handleLogin = async () => {
-    const db = getDatabase();
-    const usersRef = ref(db, "/users");
-    const q = query(usersRef, orderByChild("email"), equalTo(email));
 
-    get(q)
-      .then(async (snapshot) => {
-        if (snapshot.exists()) {
-          try {
-            await AsyncStorage.setItem("@user_email", email);
-          } catch (error) {
-            console.error(error);
-          }
-          navigation.navigate("Home");
-        } else {
-          console.log("Usúario não cadastrado");
-        }
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  };
+    await queryLogin(email).then(res => {
+      if (res) {
+        addUserLogado(res)
+        switchLogado(true)
+        
+        navigation.navigate("Home");
+      } else {
+        addUserLogado({} as UserProps)
+        switchLogado(false)
+      }
+    }).catch(console.log);
+  }
 
   return (
     <SafeAreaView style={styles.container}>
@@ -94,6 +81,7 @@ const Login = ({ navigation }: any) => {
       />
 
     </SafeAreaView>
-  )};
+  )
+};
 
 export default Login;

@@ -1,4 +1,4 @@
-import React from "react";
+import { useContext, useState, useEffect} from "react";
 import { View, Text, Image, ImageBackground, ScrollView } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import GlobalStyle from "../../globalStyle/GlobalStyle";
@@ -6,8 +6,72 @@ import styles from "./styles";
 import logo from "../../assets/images/Logo.png";
 import { Button } from "../../components/Button";
 import girafa from "../../assets/images/girafa.jpg";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { LoginContext } from "../../contexts/LoginContext";
+import { UserProps } from "../../services/api/firebase/Types";
+import { queryLogin } from "../../services/api/firebase/UserAPi";
+import { faL } from "@fortawesome/free-solid-svg-icons";
 
 const Home = ({ navigation }: any) => {
+  const { switchLogado, addUserLogado, getLogado } = useContext(LoginContext)
+  const [ loading, setLoading ] = useState<boolean>(true)
+
+  useEffect(()=> {
+
+    handleVerificarLogin().then(()=> setLoading(false))
+
+
+  },[])
+
+  const handleDeslogar = async (): Promise<void> => {
+    AsyncStorage.removeItem('@user_email')
+
+    switchLogado(false)
+    addUserLogado({} as UserProps)
+  } 
+
+
+  const handleVerificarLogin = async (): Promise<boolean> => {
+
+    const userEmail = await AsyncStorage.getItem('@user_email')
+
+    if (!userEmail) {
+
+      switchLogado(false)
+
+      addUserLogado({} as UserProps)
+
+      return false
+    }
+
+    const response = await queryLogin(userEmail).then(res => {
+
+      if(res) {
+        switchLogado(true)
+        addUserLogado(res)
+
+        return true
+      } else { 
+        switchLogado(false)
+        addUserLogado({} as UserProps)
+
+        return false
+      }
+    }).catch((error) => {
+      console.error(error)
+      return false
+    })
+
+    return response
+}
+
+
+
+  if (loading) {
+    return <SafeAreaView><Text>Carregando...</Text></SafeAreaView>
+  }
+
+
   return (
     <ImageBackground style={[styles.background, { backgroundColor: "rgba(0, 0, 0, 0.5)" }]} source={girafa} imageStyle=
     {{ opacity: 1 }}
@@ -17,13 +81,22 @@ const Home = ({ navigation }: any) => {
         <View style={[styles.content, {gap: 15, justifyContent: 'flex-start', alignItems: 'center'}]}>
           <View style={{flexDirection: 'row', width: '100%', alignItems: "center", justifyContent: 'space-around'}}>
             <Image style={styles.logo} source={logo} />
-            <View style={{ flexDirection: 'row', justifyContent: 'center', gap: 10, width: '70%'}}>
-              <Button buttonStyle={[styles.botao, {backgroundColor: GlobalStyle.verde.color}]} onPress={() => navigation.navigate('Login')}>
-                <Text style={{ color: GlobalStyle.branco.color, fontWeight: 'bold' }}>Login</Text>
-              </Button>
-              <Button buttonStyle={[styles.botao, {backgroundColor: GlobalStyle.laranja.color}]} onPress={() => navigation.navigate('Cadastro')}>
-                <Text style={{ color: GlobalStyle.branco.color, fontWeight: 'bold' }}>Cadastro</Text>
-              </Button>
+            <View style={{ flexDirection: 'row', justifyContent: ((getLogado())?'flex-end':'center'), gap: 10, width: '70%'}}>
+              {(getLogado()) ? (
+                    <Button buttonStyle={[styles.botao, {backgroundColor: GlobalStyle.rosa.color}]} onPress={handleDeslogar}>
+                      <Text style={{ color: GlobalStyle.branco.color, fontWeight: 'bold' }}>Deslogar</Text>
+                    </Button>
+              ) : (
+                  <>
+                    <Button buttonStyle={[styles.botao, {backgroundColor: GlobalStyle.verde.color}]} onPress={() => navigation.navigate('Login')}>
+                      <Text style={{ color: GlobalStyle.branco.color, fontWeight: 'bold' }}>Login</Text>
+                    </Button>
+                    <Button buttonStyle={[styles.botao, {backgroundColor: GlobalStyle.laranja.color}]} onPress={() => navigation.navigate('Cadastro')}>
+                      <Text style={{ color: GlobalStyle.branco.color, fontWeight: 'bold' }}>Cadastro</Text>
+                    </Button>
+                  </>
+                )
+              }
             </View>
           </View>
         </View>
@@ -38,8 +111,8 @@ const Home = ({ navigation }: any) => {
                   {"\n"} {"\n"}
                 </Text>
                 <Text style={{alignSelf: 'center', fontSize: 20, fontWeight: 'bold'}}>Não temos girafas!!</Text>
-            </ScrollView>
-              </View>
+              </ScrollView>
+            </View>
         </View>
       </SafeAreaView>
     </ImageBackground>

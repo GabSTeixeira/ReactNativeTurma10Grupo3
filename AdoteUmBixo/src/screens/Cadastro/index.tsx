@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState, useEffect } from "react";
 import { View, Text, Image } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
@@ -19,6 +19,9 @@ import {
   update,
 } from "firebase/database";
 import { styles } from "./styles";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { queryCadastro } from "../../services/api/firebase/UserAPi";
+import { UserProps } from "../../services/api/firebase/Types";
 
 const Cadastro = ({ navigation }: any) => {
   const [name, setName] = useState("");
@@ -26,34 +29,19 @@ const Cadastro = ({ navigation }: any) => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
+
   const handleCadastro = async () => {
-    try {
-      const database = getDatabase();
-      const usersRef = ref(database, "users");
 
-      const q = query(usersRef, orderByChild("email"), equalTo(email));
-      const snapshot = await get(q);
-      if (snapshot.exists()) {
-        console.error("O e-mail cadastrado!");
-        return;
-      }
+      await queryCadastro({name, email, password} as UserProps).then((res)=> {
+        if (res) {
+          navigation.navigate("Login");
+        }
+      }).catch((error)=>console.error("Erro ao cadastrar usuário:", error))
 
-      const newUserRef = push(usersRef);
-
-      await update(newUserRef, {
-        name,
-        email,
-        password,
-      });
-
-      navigation.navigate("Login");
       setName("");
       setEmail("");
       setPassword("");
-      setConfirmPassword("");
-    } catch (error) {
-      console.error("Erro ao cadastrar usuário:", error);
-    }
+      setConfirmPassword("")
   };
 
   return (
