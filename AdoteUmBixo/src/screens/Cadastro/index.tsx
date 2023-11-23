@@ -100,7 +100,6 @@ const Cadastro = ({ navigation }: any) => {
             onChangeText={(text) => setPassword(text)}
             secureTextEntry={true}
             placeholder="Senha"
-            keyboardType="numeric"
           />
         </View>
       </View>
@@ -117,7 +116,6 @@ const Cadastro = ({ navigation }: any) => {
             onChangeText={(text) => setConfirmPassword(text)}
             secureTextEntry={true}
             placeholder="Confirmar Senha"
-            keyboardType="numeric"
           />
         </View>
       </View>

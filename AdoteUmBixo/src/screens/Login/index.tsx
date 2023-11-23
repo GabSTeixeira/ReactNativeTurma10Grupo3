@@ -75,7 +75,6 @@ const Login = ({ navigation }: any) => {
             value={password}
             onChangeText={(text) => setPassword(text)}
             secureTextEntry={true}
-            keyboardType="numeric"
           />
         </View>
       </View>
