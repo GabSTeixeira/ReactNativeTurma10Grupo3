@@ -73,7 +73,7 @@ const Home = ({ navigation }: any) => {
     resizeMode="cover"
     >
       <SafeAreaView style={styles.container}>
-        <HeaderHome />
+        <HeaderHome navigation={navigation}/>
         <ScrollHome />
       </SafeAreaView>
     </ImageBackground>

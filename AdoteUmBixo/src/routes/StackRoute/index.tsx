@@ -13,13 +13,9 @@ import { StackActions, useNavigation } from "@react-navigation/native";
 export const Stack = createNativeStackNavigator()
 
 const StackRoutes = () => {
-
- 
-
-
-
     const navigation = useNavigation();
     const infoColor = GlobalStyle.laranja.color
+    
     return (
             <Stack.Navigator screenOptions={{
                 headerShown: true, 
