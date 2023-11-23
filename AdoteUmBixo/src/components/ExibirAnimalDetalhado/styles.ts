@@ -4,7 +4,7 @@ import GlobalStyle from "../../globalStyle/GlobalStyle";
 export const styles = StyleSheet.create({
     container: {
         height: "100%",
-        flex: 1,
+        flexGrow: 1,
         justifyContent: "space-around",
         backgroundColor: "yellow",
         // backgroundColor: GlobalStyle.branco.color,
