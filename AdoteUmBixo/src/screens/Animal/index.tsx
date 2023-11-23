@@ -25,6 +25,9 @@ const Animal = ({navigation, route}: any) => {
                 descricao={item.description}
                 email={item.contact.email}
                 img={item.photos?.[0]?.full}
+                pais={item.contact.address.country}
+                estado={item.contact.address.state}
+                cidade={item.contact.address.city}
                 />
             </ScrollView>
             <View style={styles.botaoContainer}>

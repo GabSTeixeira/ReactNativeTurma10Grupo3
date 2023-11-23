@@ -1,11 +1,15 @@
 import { View, Text, Image } from "react-native"
 import { styles } from "./styles";
+import GlobalStyle from "../../globalStyle/GlobalStyle";
 
 interface AnimalDetalhadoProps {
   img: string;
   nome: string;
   raca: string;
   genero: string;
+  pais: string;
+  estado: string;
+  cidade: string;
   tamanho: string;
   descricao: string;
   email: string;
@@ -19,6 +23,9 @@ const ExibirAnimalDetalhado = ({
   tamanho,
   descricao,
   email,
+  pais,
+  estado,
+  cidade,
 }: AnimalDetalhadoProps) => {
   return (
     <View style={styles.container}>
@@ -26,12 +33,13 @@ const ExibirAnimalDetalhado = ({
         <Image style={styles.img} source={{ uri: img }} />
       </View>
       <View style={styles.infoContainer}>
-        <Text style={styles.texto}>{nome}</Text>
-        <Text style={styles.texto}>{raca}</Text>
-        <Text style={styles.texto}>{genero}</Text>
-        <Text style={styles.texto}>{tamanho}</Text>
-        <Text style={styles.texto}>{descricao}</Text>
-        <Text style={styles.texto}>{email}</Text>
+        <Text style={[GlobalStyle.titulo, styles.titulo]}>{nome}</Text>
+        <Text style={GlobalStyle.texto}>{raca}</Text>
+        <Text style={GlobalStyle.texto}>{genero}</Text>
+        <Text style={GlobalStyle.texto}>{tamanho}</Text>
+        <Text style={[GlobalStyle.texto, styles.descricao]}>{"\n"}{descricao}</Text>
+        <Text style={GlobalStyle.texto}>{cidade}, {estado} - {pais}</Text>
+        <Text style={[GlobalStyle.texto, styles.email]}>{email}</Text>
       </View>
     </View>
   )
