@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import GlobalStyle from "../../globalStyle/GlobalStyle";
 
 export const styles = StyleSheet.create({
     input: {
@@ -9,4 +10,17 @@ export const styles = StyleSheet.create({
         marginTop: 25,
         padding: 5,
       },
-})
+      inputContainer: {
+        flexDirection: "row",
+        alignItems: "center",
+        borderColor: GlobalStyle.branco.color,
+        borderWidth: 1,
+        borderRadius: 8,
+        paddingHorizontal: 10,
+        marginBottom: 10,
+      },
+      icon: {
+        marginRight: 10,
+        color: GlobalStyle.opala.color,
+      },
+    })

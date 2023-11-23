@@ -4,23 +4,20 @@ import GlobalStyle from "../../globalStyle/GlobalStyle";
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: "column",
-    justifyContent: "space-evenly",
+    justifyContent: "space-around",
+  },
+  content: {
     alignItems: "center",
-    paddingHorizontal: 20,
+    padding: 5
   },
-  logo: {
-    width: 120,
-    height: 120,
-  },
-  tituloCadastro: {
+  titulo: {
     marginTop: 10,
     fontSize: 36,
-    color: GlobalStyle.laranja.color,
-    fontWeight: "bold",
     lineHeight: 36,
+    fontWeight: "bold",
+    color: GlobalStyle.laranja.color,
   },
-  caixaTexto: {
+  input: {
     marginTop: 7,
     backgroundColor: GlobalStyle.branco.color,
     borderColor: GlobalStyle.opala.color,
@@ -35,20 +32,7 @@ export const styles = StyleSheet.create({
   textoBotao: {
     color: GlobalStyle.fullBranco.color,
     fontWeight: "bold",
-    textShadowColor: GlobalStyle.fullPreto.color,
     textShadowRadius: 5,
-  },
-  inputContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    borderColor: GlobalStyle.branco.color,
-    borderWidth: 1,
-    borderRadius: 8,
-    paddingHorizontal: 10,
-    marginBottom: 10,
-  },
-  icon: {
-    marginRight: 10,
-    color: GlobalStyle.opala.color,
-  },
+    textShadowColor: GlobalStyle.fullPreto.color,
+  }
 });
