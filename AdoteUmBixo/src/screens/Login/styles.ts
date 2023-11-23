@@ -1,24 +1,21 @@
 import { StyleSheet } from "react-native";
 import GlobalStyle from "../../globalStyle/GlobalStyle";
 
-const styles = StyleSheet.create({
+export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: "column",
-    justifyContent: "space-evenly",
-    alignItems: "center",
-    paddingHorizontal: 20,
+    justifyContent: "space-around",
   },
-  tituloLogin: {
+  content: {
+    alignItems: "center",
+    padding: 5
+  },
+  titulo: {
     marginTop: 10,
     fontSize: 36,
-    color: GlobalStyle.verde.color,
-    fontWeight: "bold",
     lineHeight: 36,
-  },
-  logo: {
-    width: 120,
-    height: 120,
+    fontWeight: "bold",
+    color: GlobalStyle.verde.color,
   },
   input: {
     marginTop: 7,
@@ -31,22 +28,8 @@ const styles = StyleSheet.create({
   textoBotao: {
     color: GlobalStyle.fullBranco.color,
     fontWeight: "bold",
-    textShadowColor: GlobalStyle.fullPreto.color,
     textShadowRadius: 5,
-  },
-  inputContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    borderColor: GlobalStyle.branco.color,
-    borderWidth: 1,
-    borderRadius: 8,
-    paddingHorizontal: 10,
-    marginBottom: 10,
-  },
-  icon: {
-    marginRight: 10,
-    color: GlobalStyle.opala.color,
-  },
+    textShadowColor: GlobalStyle.fullPreto.color,
+  }
 });
 
-export default styles;

@@ -1,19 +1,26 @@
 import { StyleSheet } from "react-native";
+import GlobalStyle from "../../globalStyle/GlobalStyle";
 
 export const styles = StyleSheet.create({
     container: {
         flex: 1,
         width: "auto",
-        justifyContent: "flex-start",
+        backgroundColor: GlobalStyle.branco.color,
         alignItems: "center"
     },
-    context:{
-        width: "90%",
-        alignItems: "center"
+    content:{
+        flex: 1, 
+        paddingTop: 8,
+        backgroundColor: "red",
+        height: "100%",
     },
-    descricao:{
-        width: "90%",
-        alignSelf:"flex-start",
-        
+    botaoContainer: {
+        justifyContent: "center",
+        flex: 0.1,
+        width: "100%",
+        alignItems: "center",
+    },
+    botao: {
+        height: 50,
     }
 })

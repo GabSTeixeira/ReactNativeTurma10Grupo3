@@ -1,39 +1,38 @@
 import React from "react";
-import { Text, View } from "react-native";
+import { ScrollView, Text, View, Linking } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { BaseAnimal } from "../../components/BaseAnimal";
 import { Button } from "../../components/Button";
 import GlobalStyle from "../../globalStyle/GlobalStyle";
 import { styles } from "./styles";
+import { AnimalApiResponseProps } from "../../services/api/axios/Types";
+import ExibirAnimalDetalhado from "../../components/ExibirAnimalDetalhado";
 
 const Animal = ({navigation, route}: any) => {
-    const item = route.params;
+    const item = route.params as AnimalApiResponseProps
 
-    const handleVoltarLista=() => {
-        navigation.navigate("Animais")
+    const handleAdotar=() => {
+        Linking.openURL(item.url)
     }
 
     return(
-        <SafeAreaView style={styles.container}>
-            <View style={styles.context}>
-                <BaseAnimal
-                flexRow={false}
-                photos={item.photos?.[0]?.full}
-                name={item.name}
-                type={item.type}
-                age={item.age}
-                gender={item.gender}
-                size={item.size}
-                status={item.status}
-                width={300}
-                height={300}
+        <View style={styles.container}>
+            <ScrollView style={styles.content}>
+                <ExibirAnimalDetalhado 
+                nome={item.name}
+                raca={item.breeds.primary}
+                genero={item.gender}
+                tamanho={item.size}
+                descricao={item.description}
+                email={item.contact.email}
+                img={item.photos?.[0]?.full}
                 />
-                <Text style={[styles.descricao, GlobalStyle.texto]}>Descrição: {item.description || "..."}</Text>
+            </ScrollView>
+            <View style={styles.botaoContainer}>
+                <Button buttonStyle={[{backgroundColor: GlobalStyle.laranja.color}, styles.botao]} onPress={handleAdotar}>
+                    <Text style={GlobalStyle.titulo}>Adote-me</Text>
+                </Button >
             </View>
-            <Button buttonStyle={{backgroundColor: GlobalStyle.azul.color}} onPress={handleVoltarLista}>
-                <Text>Animais</Text>
-            </Button >
-        </SafeAreaView>
+        </View>
     )
 }
 export default Animal
