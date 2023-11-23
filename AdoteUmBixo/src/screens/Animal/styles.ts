@@ -13,6 +13,7 @@ export const styles = StyleSheet.create({
         paddingTop: 8,
         backgroundColor: "red",
         height: "100%",
+        width: "100%",
     },
     botaoContainer: {
         justifyContent: "center",
