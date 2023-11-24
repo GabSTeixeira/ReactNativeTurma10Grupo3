@@ -51,7 +51,6 @@ const Login = ({ navigation }: any) => {
             title="Email"
             style={styles.input}
             value={email}
-            secureTextEntry={true}
             onChangeText={(text) => setEmail(text)}
             keyboardType="email-address"
             autoCapitalize="none"

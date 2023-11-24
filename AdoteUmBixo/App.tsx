@@ -1,11 +1,11 @@
 
-import { useState } from "react";
 import Routes from "./src/routes"
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
 import { initializeApp } from "firebase/app";
 import { StatusBar } from "expo-status-bar";
 import GlobalStyle from "./src/globalStyle/GlobalStyle";
+
 
 
 library.add(fas);
@@ -26,7 +26,7 @@ export default function App() {
   // Initialize Firebase
   const app = initializeApp(firebaseConfig);
 
-
+  
 
   
   return (

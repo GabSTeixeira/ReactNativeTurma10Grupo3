@@ -52,7 +52,6 @@ const Cadastro = ({ navigation }: any) => {
             title="Nome Completo do adotante:"
             style={styles.input}
             value={name}
-            secureTextEntry={true}
             onChangeText={(text) => setName(text)}
             placeholder="Nome Completo"
             icon={faUser}
@@ -64,7 +63,6 @@ const Cadastro = ({ navigation }: any) => {
             onChangeText={(text) => setEmail(text)}
             keyboardType="email-address"
             placeholder="Email"
-            secureTextEntry={true}
             autoCapitalize="none"
             icon={faEnvelope}
           />
