@@ -41,7 +41,7 @@ const GlobalStyle = StyleSheet.create({
     },
 
     texto: {
-        fontSize: 14
+        fontSize: 14,
     }
 })
 
