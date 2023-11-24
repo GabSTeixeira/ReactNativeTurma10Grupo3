@@ -32,7 +32,7 @@ const ExibirAnimalDetalhado = ({
       <View style={styles.imgContainer}>
         <Image style={styles.img} source={{ uri: img }} />
       </View>
-      <ScrollView style={styles.infoContainer}>
+      <ScrollView style={styles.infoContainer} contentContainerStyle={styles.scrollContent}>
           <Text style={[GlobalStyle.titulo, styles.titulo]}>{nome}</Text>
           <View style={styles.atributos}>
               <Text style={styles.texto}>Raça: {raca}</Text>

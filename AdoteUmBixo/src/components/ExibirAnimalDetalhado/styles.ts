@@ -20,7 +20,10 @@ export const styles = StyleSheet.create({
         alignItems: "center",
         backgroundColor: GlobalStyle.branco.color,
         
-    }, 
+    },
+    scrollContent: {
+        paddingBottom: 120,
+      },
     infoContainer: {
         flex: 1,
         width: '90%',
