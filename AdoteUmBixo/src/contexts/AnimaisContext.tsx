@@ -4,7 +4,7 @@ import { AnimalApiResponseProps } from '../services/api/axios/Types'
 
 
 interface AnimaisContextProvider {
-    addAnimais: (arrayAnimais: AnimalApiResponseProps[] | undefined) => void,
+    addAnimais: (arrayAnimais: AnimalApiResponseProps[] | undefined) => boolean,
     getAnimais: () => AnimalApiResponseProps[]
 }
 
@@ -13,7 +13,7 @@ interface AnimaisProvider {
 }
 
 export const AnimaisContext = createContext<AnimaisContextProvider>({
-    addAnimais: ()=>{},
+    addAnimais: ()=>false,
     getAnimais: ()=>[]
 })
 
@@ -28,7 +28,7 @@ export const AnimaisProvider = ({children}: AnimaisProvider) => {
         return animais.find(Animal => Animal.id === idInput) || null
     }
 
-    const addAnimais = (arrayAnimais: AnimalApiResponseProps[] | undefined) => {
+    const addAnimais = (arrayAnimais: AnimalApiResponseProps[] | undefined): boolean => {
 
         if (arrayAnimais !== undefined) {
             const animaisComFotoEFull = arrayAnimais.filter(animal => 
@@ -37,16 +37,13 @@ export const AnimaisProvider = ({children}: AnimaisProvider) => {
                 animal.photos.some(photo => photo.full !== undefined)
             );
             
-            if (animaisComFotoEFull.length > 100) {
-                
-                let apenasCem = animaisComFotoEFull.slice(0, 99)
-                setAnimais(apenasCem)
-            } else {
-
-                setAnimais(animaisComFotoEFull);
-            }
-
+        
+            setAnimais(animaisComFotoEFull);
+            
+            return true
         }
+
+        return false
     }
 
     return(

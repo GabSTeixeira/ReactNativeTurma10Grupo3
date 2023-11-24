@@ -2,15 +2,12 @@ import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    gap: 15,
-    justifyContent: "flex-start",
-    alignItems: "center",
+    width: '100%',
+    height: 'auto',
   },
   content: {
     flexDirection: "row",
     justifyContent: "space-around",
-    width: "100%",
     alignItems: "center",
   },
   logo: {

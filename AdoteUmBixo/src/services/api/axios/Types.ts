@@ -1,10 +1,22 @@
 
 
 
-
-
+//tipo para controle de requisição
+export type ultimoAcessoProps = {
+  data: number,
+  token: string,
+  tipoToken: string,
+  validade: number
+}
 
 //tipo de resposta da api
+
+export interface requisicaoTokenProps {
+  token_type: string;
+	expires_in: number;
+  access_token: string;
+}
+
 export interface AnimaisApiResponseProps {
     animals: AnimalApiResponseProps[]
 }

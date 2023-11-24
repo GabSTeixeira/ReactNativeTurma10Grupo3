@@ -1,11 +1,20 @@
-import React from "react";
 import { Image, View, Text } from "react-native";
 import { Button } from "../Button";
 import logo from "../../assets/images/Logo.png";
 import { styles } from "./styles";
 import GlobalStyle from "../../globalStyle/GlobalStyle";
 
-const HeaderHome = ({ navigation }: any) => {
+interface HeaderHomeProps {
+  navigation: any;
+  logado: boolean;
+  handleDeslogar: () => Promise<void>
+}
+
+
+const HeaderHome = ({ navigation, logado, handleDeslogar }: HeaderHomeProps) => {
+
+
+
   const handleCadastro = () => {
     navigation.navigate("Cadastro");
   };
@@ -21,33 +30,52 @@ const HeaderHome = ({ navigation }: any) => {
         <View
           style={{
             flexDirection: "row",
-            justifyContent: "center",
+            justifyContent: (logado) ? ("flex-end") : ("center"),
             gap: 10,
             width: "70%",
           }}
         >
-          <Button
-            buttonStyle={[
-              styles.botao,
-              { backgroundColor: GlobalStyle.verde.color },
-            ]}
-            onPress={handleLogin}
-          >
-            <Text style={[{ color: GlobalStyle.branco.color }, styles.texto]}>
-              Login
-            </Text>
-          </Button>
-          <Button
-            buttonStyle={[
-              styles.botao,
-              { backgroundColor: GlobalStyle.laranja.color },
-            ]}
-            onPress={handleCadastro}
-          >
-            <Text style={[{ color: GlobalStyle.branco.color }, styles.texto]}>
-              Cadastro
-            </Text>
-          </Button>
+          {(logado) ? (
+            <>
+              <Button
+              buttonStyle={[
+                styles.botao,
+                { backgroundColor: GlobalStyle.rosa.color },
+              ]}
+              onPress={handleDeslogar}
+              >
+                <Text style={[{ color: GlobalStyle.branco.color }, styles.texto]}>
+                  Deslogar
+                </Text>
+              </Button>
+            </>
+          ):(
+            <>
+              <Button
+              buttonStyle={[
+                styles.botao,
+                { backgroundColor: GlobalStyle.verde.color },
+              ]}
+              onPress={handleLogin}
+              >
+                <Text style={[{ color: GlobalStyle.branco.color }, styles.texto]}>
+                  Login
+                </Text>
+              </Button>
+              <Button
+              buttonStyle={[
+                styles.botao,
+                { backgroundColor: GlobalStyle.laranja.color },
+              ]}
+              onPress={handleCadastro}
+              >
+                <Text style={[{ color: GlobalStyle.branco.color }, styles.texto]}>
+                  Cadastro
+                </Text>
+              </Button>
+            </>
+          )}
+
         </View>
       </View>
     </View>

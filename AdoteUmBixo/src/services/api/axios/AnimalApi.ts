@@ -1,10 +1,10 @@
 
 import axios from "axios";
 import { CLIENT_SECRET, CLIENT_ID } from '@env'
-import { AnimaisApiResponseProps } from "./Types";
-import * as FileSystem from 'expo-file-system'
+import { AnimaisApiResponseProps, requisicaoTokenProps, ultimoAcessoProps } from "./Types";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const apiCallTimeJsonUri = FileSystem.documentDirectory + 'apiCallTime.json'
+
 let TOKEN = ''
 const multiPartForm = new FormData();
 multiPartForm.append('grant_type', 'client_credentials');
@@ -13,64 +13,91 @@ multiPartForm.append('client_secret', `${CLIENT_SECRET}`);
 
 
 
-const buscarToken = async (): Promise<void> => {
-
-    const response = await axios.post('https://api.petfinder.com/v2/oauth2/token', multiPartForm , {
-        headers: {'Content-Type': 'multipart/form-data'}
-    })
-
-    TOKEN = response.data.access_token;
-
-    await FileSystem.writeAsStringAsync(apiCallTimeJsonUri,JSON.stringify({ultimaData: new Date().valueOf(), ultimoToken: TOKEN}))
-   
-}
 
 const ApiAnimal = axios.create({
     //petFinder api
-    baseURL: 'https://api.petfinder.com/v2'
+     baseURL: 'https://api.petfinder.com/v2'
 })
-
-
-export const carregarAnimais = async (): Promise<AnimaisApiResponseProps | null> => {  
+    
+const requisitarToken = async () => {
+        
+    const response = (await axios.post('https://api.petfinder.com/v2/oauth2/token', multiPartForm , {
+        headers: {'Content-Type': 'multipart/form-data'}
+    })).data as requisicaoTokenProps
+    
+    TOKEN = `${response.token_type} ${response.access_token}`
     
     try {
-        // verifica se o arquivo pra controle de requisição existe
-        if (await FileSystem.getInfoAsync(apiCallTimeJsonUri)) {
-            const requisicaoAnterior = JSON.parse( await FileSystem.readAsStringAsync(apiCallTimeJsonUri))
-            /* 
-            se a data atual for maior que a data antiga mais uma hora e o json não estiver vazio
-            gere um novo token. Senão use o anteriormente registrado
-            */
-           if (Object.keys(requisicaoAnterior).length !== 0 && new Date().valueOf() >= requisicaoAnterior.ultimaData + (3600*1000)) {
-               await buscarToken()
-            } else {
-                TOKEN = requisicaoAnterior.ultimoToken
-            }
-        } else {
-            await buscarToken()
-        }
+        await AsyncStorage.setItem('@ultimoAcesso',JSON.stringify({
+            data: new Date().valueOf(),
+            token: response.access_token,
+            tipoToken: response.token_type,
+            validade: (response.expires_in * 1000)
+        } as ultimoAcessoProps))
+        
+        return true
     } catch (error) {
-        console.log('serviço fora do ar')
+        console.error("Não foi possivel salvar a sessão: "+error)
+        return false
+    }
+}
+    
+    
+const verificarAcesso = async (): Promise<boolean> => {
+    const ultimoAcessoJson = await AsyncStorage.getItem("@ultimoAcesso")
+    
+    if(ultimoAcessoJson !== null) {
+        const ultimoAcesso = JSON.parse(ultimoAcessoJson) as ultimoAcessoProps
+        const dataAtual = new Date().valueOf()
+
+        if (dataAtual < ultimoAcesso.data + ultimoAcesso.validade) {
+            TOKEN = `${ultimoAcesso.tipoToken} ${ultimoAcesso.token}`
+            console.log('ainda da pra usar')
+            
+            return true
+        } 
+    }
+
+    return false
+}  
+    
+    
+    
+export const carregarAnimais = async (): Promise<AnimaisApiResponseProps | null> => {
+
+    //logCurrentStorage()
+
+    if (!(await verificarAcesso())) {  
+        try {
+            const tokenGerado = await requisitarToken()
+
+            if (tokenGerado) {
+                console.log(`Novo Token Gerado:  ...${TOKEN.slice(TOKEN.length-10,TOKEN.length)}`)
+            } else {
+                console.error('Não foi possivel gerar um novo token, verifique seu Id e Secret da api petfinder')
+                return null
+            }
+        } catch(error) {
+            console.error(error)
+            
+            return null
+        }
     }
     
     try {
-    console.log('Token: '+TOKEN.slice(0,10)+'...')
-
-        const response = await ApiAnimal.get('/animals', {
-            headers: {Authorization: 'Bearer '+TOKEN},
+        console.log(`Token Atual:  ...${TOKEN.slice(TOKEN.length-10,TOKEN.length)}`)
+        const animais = (await ApiAnimal.get('/animals', {
+            headers: {Authorization: TOKEN},
             params: {
                 limit: 100
             }
-        })
-
-        return response.data;
+        })).data as AnimaisApiResponseProps
         
+        return animais
     } catch (error) {
-        
-        console.log('Problema na requisição de dados')
-        buscarToken()
 
-        return null 
+        console.error('Não foi possivel fazer a requisição de animais')
+        return null
     }
 }
 

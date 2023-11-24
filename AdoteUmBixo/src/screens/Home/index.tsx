@@ -9,6 +9,7 @@ import { UserProps } from "../../services/api/firebase/Types";
 import { queryLogin } from "../../services/api/firebase/UserAPi";
 import HeaderHome from "../../components/HeaderHome";
 import ScrollHome from "../../components/ScrollHome";
+import { View } from 'react-native'
 
 
 const Home = ({ navigation }: any) => {
@@ -72,10 +73,14 @@ const Home = ({ navigation }: any) => {
     {{ opacity: 1 }}
     resizeMode="cover"
     >
-      <SafeAreaView style={styles.container}>
-        <HeaderHome navigation={navigation}/>
-        <ScrollHome />
-      </SafeAreaView>
+        <SafeAreaView style={styles.container}>
+          <View style={styles.top}>
+            <HeaderHome logado={getLogado()} handleDeslogar={handleDeslogar} navigation={navigation}/>
+          </View>
+          <View style={styles.bot}>
+            <ScrollHome />
+          </View>
+        </SafeAreaView>
     </ImageBackground>
   );
 };

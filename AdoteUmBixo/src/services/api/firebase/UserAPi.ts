@@ -1,6 +1,7 @@
 import { equalTo, get, getDatabase, orderByChild, push, query, ref, update } from "firebase/database";
 import { UserProps } from "./Types";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { Alert } from "react-native"
 
 
 export const queryCadastro = async (user: UserProps): Promise<boolean> => {
@@ -45,7 +46,7 @@ export const queryLogin = async (email: string): Promise<UserProps | null> => {
             return null
         }
     } else {
-        console.log("Usúario não cadastrado");
+        Alert.alert('Informações incorretas', 'Por favor verifique suas informações e tente novamente.')
 
         await AsyncStorage.removeItem('@user_email')
         return null

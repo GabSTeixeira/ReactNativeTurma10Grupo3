@@ -10,6 +10,7 @@ import LinkBar from "../../components/LinkBar";
 import { styles } from "./styles";
 import { queryCadastro } from "../../services/api/firebase/UserAPi";
 import { UserProps } from "../../services/api/firebase/Types";
+import { Alert } from 'react-native'
 import HeaderLoginCadastro from "../../components/HeaderLoginCadastro";
 
 
@@ -21,6 +22,10 @@ const Cadastro = ({ navigation }: any) => {
 
 
   const handleCadastro = async () => {
+      if (name.length < 3 || email.length < 10 || password.length < 3 || password != confirmPassword) {
+        Alert.alert('Campos obrigatorios', 'Por favor, preencha todos os campos corretamente.')
+        return null
+      }
 
       await queryCadastro({name, email, password} as UserProps).then((res)=> {
         if (res) {
@@ -47,6 +52,7 @@ const Cadastro = ({ navigation }: any) => {
             title="Nome Completo do adotante:"
             style={styles.input}
             value={name}
+            secureTextEntry={true}
             onChangeText={(text) => setName(text)}
             placeholder="Nome Completo"
             icon={faUser}
@@ -58,6 +64,7 @@ const Cadastro = ({ navigation }: any) => {
             onChangeText={(text) => setEmail(text)}
             keyboardType="email-address"
             placeholder="Email"
+            secureTextEntry={true}
             autoCapitalize="none"
             icon={faEnvelope}
           />

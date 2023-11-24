@@ -14,9 +14,9 @@ const Animais = ({ navigation }: any) => {
   useEffect(() => {
     carregarAnimais()
       .then((res) => {
-        addAnimais(res?.animals);
+        return addAnimais(res?.animals);
       })
-      .then(() => setLoading(false))
+      .then((res) => (res) ? setLoading(false) : setLoading(true))
       .catch((res) => {
         console.log(res);
         setLoading(true);
@@ -34,6 +34,7 @@ const Animais = ({ navigation }: any) => {
           </View>
           <FlatList
             data={getAnimais()}
+            keyExtractor={(item) => item.id.toString()}
             renderItem={({ item }) => (
               <TouchableOpacity
                 onPress={() => navigation.navigate("Animal", item)}
@@ -53,7 +54,6 @@ const Animais = ({ navigation }: any) => {
                 />
               </TouchableOpacity>
             )}
-            keyExtractor={(item) => item.id.toString()}
           />
         </>
       )}

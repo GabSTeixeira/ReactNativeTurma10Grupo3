@@ -10,6 +10,7 @@ import { styles } from "./styles";
 import { LoginContext } from "../../contexts/LoginContext";
 import { UserProps } from "../../services/api/firebase/Types";
 import { queryLogin } from "../../services/api/firebase/UserAPi";
+import { Alert } from "react-native";
 
 import HeaderLoginCadastro from "../../components/HeaderLoginCadastro";
 
@@ -19,6 +20,10 @@ const Login = ({ navigation }: any) => {
   const { addUserLogado, switchLogado } = useContext(LoginContext)
 
   const handleLogin = async () => {
+    if (email.length < 10 || password.length < 3) {
+      Alert.alert('Campos obrigatorios', 'Por favor, preencha todos os campos corretamente.')
+      return null
+    }
 
     await queryLogin(email).then(res => {
       if (res) {
@@ -30,7 +35,7 @@ const Login = ({ navigation }: any) => {
         addUserLogado({} as UserProps)
         switchLogado(false)
       }
-    }).catch(console.log);
+    }).catch(console.error);
   }
 
   return (
@@ -46,6 +51,7 @@ const Login = ({ navigation }: any) => {
             title="Email"
             style={styles.input}
             value={email}
+            secureTextEntry={true}
             onChangeText={(text) => setEmail(text)}
             keyboardType="email-address"
             autoCapitalize="none"
