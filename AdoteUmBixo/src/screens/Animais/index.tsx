@@ -25,7 +25,11 @@ const Animais = ({ navigation }: any) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      {loading ? (<Text>Carregando...</Text>) : (
+      {loading ? (
+        <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+          <Text style={{fontWeight: 'bold'}}>Carregando...</Text> 
+        </View>
+         ) : (
         <>
           <View style={styles.titulo}>
             <Text style={[GlobalStyle.titulo, { color: GlobalStyle.branco.color }]}>

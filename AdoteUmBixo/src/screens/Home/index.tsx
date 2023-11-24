@@ -65,7 +65,11 @@ const Home = ({ navigation }: any) => {
 
 
   if (loading) {
-    return <SafeAreaView><Text>Carregando...</Text></SafeAreaView>
+    return (
+      <SafeAreaView style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+        <Text style={{fontWeight: 'bold'}}>Carregando...</Text>
+      </SafeAreaView>
+      )
   }
   
   return (

@@ -52,7 +52,6 @@ const verificarAcesso = async (): Promise<boolean> => {
 
         if (dataAtual < ultimoAcesso.data + ultimoAcesso.validade) {
             TOKEN = `${ultimoAcesso.tipoToken} ${ultimoAcesso.token}`
-            console.log('ainda da pra usar')
             
             return true
         } 
