@@ -36,8 +36,16 @@ export const AnimaisProvider = ({children}: AnimaisProvider) => {
                 animal.photos?.length > 0 &&
                 animal.photos.some(photo => photo.full !== undefined)
             );
-        
-            setAnimais(animaisComFotoEFull);
+            
+            if (animaisComFotoEFull.length > 100) {
+                
+                let apenasCem = animaisComFotoEFull.slice(0, 99)
+                setAnimais(apenasCem)
+            } else {
+
+                setAnimais(animaisComFotoEFull);
+            }
+
         }
     }
 

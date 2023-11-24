@@ -1,4 +1,4 @@
-import { View, Text, Image } from "react-native"
+import { View, Text, Image, ScrollView } from "react-native"
 import { styles } from "./styles";
 import GlobalStyle from "../../globalStyle/GlobalStyle";
 
@@ -32,15 +32,17 @@ const ExibirAnimalDetalhado = ({
       <View style={styles.imgContainer}>
         <Image style={styles.img} source={{ uri: img }} />
       </View>
-      <View style={styles.infoContainer}>
-        <Text style={[GlobalStyle.titulo, styles.titulo]}>{nome}</Text>
-        <Text style={GlobalStyle.texto}>{raca}</Text>
-        <Text style={GlobalStyle.texto}>{genero}</Text>
-        <Text style={GlobalStyle.texto}>{tamanho}</Text>
-        <Text style={[GlobalStyle.texto, styles.descricao]}>{"\n"}{descricao}</Text>
-        <Text style={GlobalStyle.texto}>{cidade}, {estado} - {pais}</Text>
-        <Text style={[GlobalStyle.texto, styles.email]}>{email}</Text>
-      </View>
+      <ScrollView style={styles.infoContainer}>
+          <Text style={[GlobalStyle.titulo, styles.titulo]}>{nome}</Text>
+          <View style={styles.atributos}>
+              <Text style={styles.texto}>Raça: {raca}</Text>
+              <Text style={styles.texto}>Genero: {genero}</Text>
+              <Text style={styles.texto}>Tamanho: {tamanho}</Text>
+              <Text style={styles.texto}>{cidade}, {estado} - {pais}</Text>
+          </View>
+          <Text style={[styles.texto, styles.descricao]}>{descricao}</Text>
+          <Text style={[styles.texto, styles.email]}>{email}</Text>
+      </ScrollView>
     </View>
   )
 };

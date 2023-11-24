@@ -11,7 +11,6 @@ export const styles = StyleSheet.create({
     content:{
         flex: 1, 
         paddingTop: 8,
-        backgroundColor: "red",
         height: "100%",
         width: "100%",
     },
@@ -20,6 +19,7 @@ export const styles = StyleSheet.create({
         flex: 0.1,
         width: "100%",
         alignItems: "center",
+        backgroundColor: GlobalStyle.azul.color
     },
     botao: {
         height: 50,

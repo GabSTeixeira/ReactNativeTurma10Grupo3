@@ -14,7 +14,7 @@ const ScrollHome = () => {
         <View style={styles.textContainer}>
           <Text style={[GlobalStyle.texto, styles.texto]}>
             {"\n"}A Adote um Bixo é uma organização que ajuda animais a
-            encontrar um lar. A organização tem vários animais de todas as
+            encontrarem um lar. A organização tem vários animais de todas as
             idades, tamanhos, cores e personalidades. Se você está procurando um
             companheiro para brincar e relaxar, nós temos o bixo certo para
             você! A adoção é um ato de amor e responsabilidade. Ao adotar um
