@@ -16,6 +16,9 @@ GitHub: https://github.com/BarbaraDeslandes
 Gabriel Teixeira   
 Linkedin: https://www.linkedin.com/in/gabriel-silva-teixeira/  
 GitHub: https://github.com/GabSTeixeira  
+  
+Fabiana Audi  
+Linkedin: https://www.linkedin.com/in/fabianaaudi/?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app
 
 
 
